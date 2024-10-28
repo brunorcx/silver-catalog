@@ -1,0 +1,83 @@
+// Define SCSS breakpoints
+$breakpoint-xs: 480px; // Extra small devices
+$breakpoint-sm: 640px; // Small devices
+$breakpoint-md: 768px; // Medium devices
+$breakpoint-lg: 1024px; // Large devices
+$breakpoint-xl: 1280px; // Extra large devices
+
+// Show/hide utilities based on screen size
+
+// Extra Small Devices
+.hide-on-xs {
+  @media (max-width: $breakpoint-xs) {
+    display: none;
+  }
+}
+
+.show-on-xs {
+  display: none;
+
+  @media (max-width: $breakpoint-xs) {
+    display: block;
+  }
+}
+
+// Small Devices
+.hide-on-sm {
+  @media (max-width: $breakpoint-sm) {
+    display: none;
+  }
+}
+
+.show-on-sm {
+  display: none;
+
+  @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+    display: block;
+  }
+}
+
+// Medium Devices
+.hide-on-md {
+  @media (min-width: $breakpoint-md) {
+    display: none;
+  }
+}
+
+.show-on-md {
+  display: none;
+
+  @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+    display: block;
+  }
+}
+
+// Large Devices
+.hide-on-lg {
+  @media (min-width: $breakpoint-lg) {
+    display: none;
+  }
+}
+
+.show-on-lg {
+  display: none;
+
+  @media (min-width: $breakpoint-md) and (max-width: $breakpoint-lg) {
+    display: block;
+  }
+}
+
+// Extra Large Devices
+.hide-on-xl {
+  @media (min-width: $breakpoint-xl) {
+    display: none;
+  }
+}
+
+.show-on-xl {
+  display: none;
+
+  @media (min-width: $breakpoint-lg) and (max-width: $breakpoint-xl) {
+    display: block;
+  }
+}

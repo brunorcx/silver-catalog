@@ -1,13 +1,13 @@
-import { NgClass, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
-import { AuthClientConfig } from '@auth0/auth0-angular';
-import { HighlightModule } from 'ngx-highlightjs';
-import { ApiService } from 'src/app/api.service';
+import { NgClass, NgIf } from "@angular/common";
+import { Component } from "@angular/core";
+import { AuthClientConfig } from "@auth0/auth0-angular";
+import { HighlightModule } from "ngx-highlightjs";
+import { ApiService } from "src/app/api.service";
 
 @Component({
-  selector: 'app-external-api',
-  templateUrl: './external-api.component.html',
-  styleUrls: ['./external-api.component.less'],
+  selector: "app-external-api",
+  templateUrl: "./external-api.component.html",
+  styleUrls: ["./external-api.component.less"],
   standalone: true,
   imports: [HighlightModule, NgClass, NgIf],
 })
@@ -16,10 +16,7 @@ export class ExternalApiComponent {
   audience: string | undefined;
   hasApiError = false;
 
-  constructor(
-    private api: ApiService,
-    private configFactory: AuthClientConfig
-  ) {
+  constructor(private api: ApiService, private configFactory: AuthClientConfig) {
     this.audience = this.configFactory.get()?.authorizationParams.audience;
   }
 

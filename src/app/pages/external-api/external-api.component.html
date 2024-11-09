@@ -1,9 +1,9 @@
 <div class="container mt-5">
   <h1>External API</h1>
-  
+
   <div *ngIf="hasApiError" class="alert alert-danger" role="alert">
-    An error occured when trying to call the local API on port 3001. Ensure the local API is started using either `npm run dev` or `npm run
-    server:api`.
+    An error occured when trying to call the local API on port 3001. Ensure the local API is started using either `npm run dev`
+    or`npm run server:api`.
   </div>
 
   <p class="lead">Ping an external API by clicking the button below.</p>
@@ -23,17 +23,14 @@
         default value of <code>YOUR_API_IDENTIFIER</code>. You might get this
         default value if you used the "Download Sample" feature of
         <a href="https://auth0.com/docs/quickstart/spa/angular">
-          the quickstart guide </a
-        >, but have not set an API up in your Auth0 Tenant. You can find out
+          the quickstart guide </a>, but have not set an API up in your Auth0 Tenant. You can find out
         more information on
         <a href="https://auth0.com/docs/api">setting up APIs</a> in the Auth0
         Docs.
       </p>
       <p>
         The audience is the identifier of the API that you want to call (see
-        <a
-          href="https://auth0.com/docs/get-started/dashboard/tenant-settings#api-authorization-settings"
-        >
+        <a href="https://auth0.com/docs/get-started/dashboard/tenant-settings#api-authorization-settings">
           API Authorization Settings
         </a>
         for more info).
@@ -58,11 +55,7 @@
     API's audience value.
   </p>
 
-  <button
-    class="btn btn-primary mb-5"
-    [disabled]="!audience"
-    (click)="pingApi()"
-  >
+  <button class="btn btn-primary mb-5" [disabled]="!audience" (click)="pingApi()">
     Ping API
   </button>
 

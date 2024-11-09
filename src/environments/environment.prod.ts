@@ -1,23 +1,14 @@
-import config from '../../auth_config.json';
-
-const { domain, clientId, audience, apiUri, errorPath } = config as {
-  domain: string;
-  clientId: string;
-  audience?: string;
-  apiUri: string;
-  errorPath: string;
-};
-
 export const environment = {
   production: true,
   auth: {
-    domain,
-    clientId,
-    ...(audience && audience !== "YOUR_API_IDENTIFIER" ? { audience } : null),
-    redirectUri: window.location.origin,
-    errorPath,
+    domain: process.env.VERCEL_AUTH_DOMAIN || "",
+    clientId: process.env.VERCEL_CLIENT_ID || "",
+    // Include the audience only if it's defined and is not the default
+    ...(process.env.VERCEL_AUDIENCE && process.env.VERCEL_AUDIENCE !== "YOUR_API_IDENTIFIER" ? { audience: process.env.VERCEL_AUDIENCE } : {}),
+    redirectUri: window.location.origin, // No change needed here as it's static
+    errorPath: process.env.VERCEL_ERROR_PATH || "/error", // Default fallback if not provided
   },
   httpInterceptor: {
-    allowedList: [`${apiUri}/*`],
+    allowedList: [`${process.env.VERCEL_API_URI}/*`], // This replaces apiUri from the JSON config
   },
 };

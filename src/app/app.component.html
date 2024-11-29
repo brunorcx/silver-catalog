@@ -1,9 +1,15 @@
 <div class="d-flex flex-column h-100">
-  <app-nav-bar></app-nav-bar>
+  <section class="side-bar-section">
+    <app-side-bar></app-side-bar>
+  </section>
 
-  <div class="container flex-grow-1 flex-shrink-1">
-    <router-outlet></router-outlet>
-  </div>
+  <section class="body-section">
+    <div class="container flex-grow-1 flex-shrink-1">
+      <router-outlet></router-outlet>
+    </div>
+  </section>
 
-  <app-footer></app-footer>
+  <section class="footer-section">
+    <app-footer></app-footer>
+  </section>
 </div>

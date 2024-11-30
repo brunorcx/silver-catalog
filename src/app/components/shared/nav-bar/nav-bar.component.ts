@@ -19,7 +19,7 @@ export class NavBarComponent {
   faPowerOff = faPowerOff;
 
   constructor(public auth: AuthService, @Inject(DOCUMENT) private doc: Document) {}
-
+  
   loginWithRedirect() {
     this.auth.loginWithRedirect();
   }

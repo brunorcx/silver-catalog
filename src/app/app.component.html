@@ -1,6 +1,11 @@
 <div class="d-flex flex-column h-100">
-  <section class="side-bar-section">
-    <app-side-bar></app-side-bar>
+  <section class="nav-bar-section">
+    @if (!isSmallScreen) {
+      <app-side-bar class="sidebar-component"></app-side-bar>
+    }
+    @else {
+      <app-nav-bar class="navbar-component"></app-nav-bar>
+    }
   </section>
 
   <section class="body-section">

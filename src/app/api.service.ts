@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import config from '../../auth_config.json';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import config from "../../auth_config.json";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  ping$() {
-    return this.http.get(`${config.apiUri}/api/external`);
+  requestAccessToken() {
+    return this.http.post(`${config.apiUri}/api/Product/auth/token`, {});
   }
 }

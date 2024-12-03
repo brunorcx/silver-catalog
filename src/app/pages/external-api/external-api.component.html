@@ -55,8 +55,8 @@
     API's audience value.
   </p>
 
-  <button class="btn btn-primary mb-5" [disabled]="!audience" (click)="pingApi()">
-    Ping API
+  <button class="btn btn-primary mb-5" [disabled]="!audience" (click)="requestToken()">
+    Request Token
   </button>
 
   <div class="result-block-container" *ngIf="responseJson">

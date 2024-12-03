@@ -20,8 +20,8 @@ export class ExternalApiComponent {
     this.audience = this.configFactory.get()?.authorizationParams.audience;
   }
 
-  pingApi() {
-    this.api.ping$().subscribe({
+  requestToken() {
+    this.api.requestAccessToken().subscribe({
       next: (res) => {
         this.hasApiError = false;
         this.responseJson = JSON.stringify(res, null, 2).trim();

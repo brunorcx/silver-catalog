@@ -8,7 +8,11 @@ import config from "../../auth_config.json";
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  requestAccessToken() {
-    return this.http.post(`${config.apiUri}/api/Product/auth/token`, {});
+  // requestAccessToken() {
+  //   return this.http.post(`${config.apiUri}/api/Product/auth/token`, {});
+  // }
+
+  getProducts() {
+    return this.http.get(`${config.apiUri}/api/Product`, {});
   }
 }

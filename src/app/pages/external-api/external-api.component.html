@@ -55,15 +55,26 @@
     API's audience value.
   </p>
 
-  <button class="btn btn-primary mb-5" [disabled]="!audience" (click)="requestToken()">
-    Request Token
-  </button>
+  <div class="d-flex flex-column">
+    <button class="btn btn-primary mb-5" [disabled]="!audience" (click)="getProducts()">
+      Get Products
+    </button>
+  </div>
 
   <div class="result-block-container" *ngIf="responseJson">
     <div class="result-block" [ngClass]="{ show: !!responseJson }">
       <h6 class="muted">Result</h6>
       <pre>
         <code class="js rounded" [highlight]="responseJson"></code>
+      </pre>
+    </div>
+  </div>
+
+  <div class="result-block-container" *ngIf="productsList">
+    <div class="result-block" [ngClass]="{ show: !!productsList }">
+      <h6 class="muted">Result</h6>
+      <pre>
+        <code class="js rounded" [highlight]="productsList"></code>
       </pre>
     </div>
   </div>

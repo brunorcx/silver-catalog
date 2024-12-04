@@ -1,4 +1,5 @@
 import { Component, Inject } from "@angular/core";
+import { CommonModule } from '@angular/common';
 import { faUser, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { AuthService } from "@auth0/auth0-angular";
 import { AsyncPipe, DOCUMENT, NgIf } from "@angular/common";
@@ -11,8 +12,9 @@ import { RouterLink } from "@angular/router";
   templateUrl: "./nav-bar.component.html",
   styleUrls: ["./nav-bar.component.less"],
   standalone: true,
-  imports: [FontAwesomeModule, NgbDropdownToggle, NgbDropdownMenu, NgbDropdown, NgbCollapse, AsyncPipe, NgIf, RouterLink],
+  imports: [FontAwesomeModule, NgbDropdownToggle, NgbDropdownMenu, NgbDropdown, NgbCollapse, AsyncPipe, NgIf, RouterLink, CommonModule,],
 })
+
 export class NavBarComponent {
   isCollapsed = true;
   faUser = faUser;

@@ -15,5 +15,73 @@
 
     .navbar-toggler {
         margin-right: 1.5rem;
+        border: none;
+
+        &:focus {
+            border: none;
+            outline: none;
+        }
+
+        .nav-hamburger {
+            display: block;
+            position: relative;
+            background: black;
+            width: 30px;
+            height: 2px;
+            transition: all 0.3s ease-in-out;
+
+            &::before,
+            &::after {
+                position: absolute;
+                background: black;
+                content: "";
+                display: block;
+                width: 100%;
+                height: 100%;
+                transition: all 0.3s ease-in-out;
+            }
+        }
+
+      
+
+        .nav-hamburger::after {
+            transform: translateY(10px);
+
+        }
+
+        .nav-hamburger::before {
+            transform: translateY(-10px);
+        }
+
+        .active {
+            display: block;
+            position: relative;
+            background: rgba(0, 0, 0, 0);
+            width: 30px;
+            height: 2px;
+            transform: rotate(0deg);
+            transition: all 0.3s ease-in-out;
+
+        }
+
+        .active::after,
+        .active::before {
+            position: absolute;
+            background: black;
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .active::after {
+            transform: rotate(45deg) translateY(0px);
+        }
+
+        .active::before {
+            transform: rotate(-45deg) translateY(0px);
+        }
     }
+
 }

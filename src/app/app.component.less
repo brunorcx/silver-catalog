@@ -1,5 +1,17 @@
 @import '../app/components/shared/styles/media-query.less';
 
-.nav-container{
-    padding: 0;
+.sidebar-component{
+    display: block;
+}
+.navbar-component{
+    display: none;
+}
+
+@media @mobile {
+    .sidebar-component{
+        display: none;
+    }
+    .navbar-component{
+        display: block;
+    }
 }

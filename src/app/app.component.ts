@@ -13,16 +13,8 @@ import { SideBarComponent } from "./components/shared/side-bar/side-bar.componen
   standalone: true,
   imports: [RouterOutlet, NavBarComponent, FooterComponent, SideBarComponent],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   isSmallScreen: boolean;
 
   constructor(private breackpointObserver: BreakpointObserver) {}
-  
-  ngOnInit() {
-    this.breackpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
-      this.isSmallScreen = result.matches;
-      console.log('isSmallScreen:', this.isSmallScreen);
-    });
-  }
 }
-

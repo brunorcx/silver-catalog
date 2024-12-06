@@ -1,6 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
-import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 
 import { NavBarComponent } from "./components/shared/nav-bar/nav-bar.component";
 import { FooterComponent } from "./components/shared/footer/footer.component";
@@ -14,7 +13,6 @@ import { SideBarComponent } from "./components/shared/side-bar/side-bar.componen
   imports: [RouterOutlet, NavBarComponent, FooterComponent, SideBarComponent],
 })
 export class AppComponent {
-  isSmallScreen: boolean;
 
-  constructor(private breackpointObserver: BreakpointObserver) {}
+  
 }

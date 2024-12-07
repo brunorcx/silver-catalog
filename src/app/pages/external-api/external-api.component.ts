@@ -15,16 +15,28 @@ export class ExternalApiComponent {
   responseJson: string;
   audience: string | undefined;
   hasApiError = false;
+  productsList: string;
 
   constructor(private api: ApiService, private configFactory: AuthClientConfig) {
     this.audience = this.configFactory.get()?.authorizationParams.audience;
   }
 
-  pingApi() {
-    this.api.ping$().subscribe({
+  // Token is already generated once the user logs in. So we don't need this post request
+  // requestToken() {
+  //   this.api.requestAccessToken().subscribe({
+  //     next: (res) => {
+  //       this.hasApiError = false;
+  //       this.responseJson = JSON.stringify(res, null, 2).trim();
+  //     },
+  //     error: () => (this.hasApiError = true),
+  //   });
+  // }
+
+  getProducts() {
+    this.api.getProducts().subscribe({
       next: (res) => {
         this.hasApiError = false;
-        this.responseJson = JSON.stringify(res, null, 2).trim();
+        this.productsList = JSON.stringify(res, null, 2).trim();
       },
       error: () => (this.hasApiError = true),
     });

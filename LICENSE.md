@@ -58,5 +58,3 @@ a. **Attribution**
 
 The Licensed Rights include Sui Generis Database Rights that apply to Your use of the Licensed Material.
 - You may exercise the right to extract, reuse, reproduce, and Share all or a substantial portion of the contents of the database for NonCommercial purposes only.
-
-

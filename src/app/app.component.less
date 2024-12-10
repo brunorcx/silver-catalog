@@ -2,15 +2,36 @@
 
 .main-container {
     display: grid;
+    
+    gap: 0px;
+    grid-template-areas:
+        "Navbar Navbar Navbar"
+        "Sidebar Body Body"
+        "Footer Footer Footer";
+
+    .nav-bar-section {
+        grid-area: Navbar;
+    }
 
     .sidebar-component {
         display: block;
+        height: 100%;
+        grid-area: Sidebar;
     }
+
+    .body-section {
+        grid-area: Body;
+    }
+
+    .footer-section {
+        grid-area: Footer;
+    }
+
+
 }
 
 @media @mobile {
     .main-container {
-        
 
         .sidebar-component {
             display: none;

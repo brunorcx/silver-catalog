@@ -1,17 +1,23 @@
 @import '../app/components/shared/styles/media-query.less';
 
-.sidebar-component{
-    display: block;
-}
-.navbar-component{
-    display: none;
+.main-container {
+    display: grid;
+
+    .sidebar-component {
+        display: block;
+    }
 }
 
 @media @mobile {
-    .sidebar-component{
-        display: none;
-    }
-    .navbar-component{
-        display: block;
+    .main-container {
+        
+
+        .sidebar-component {
+            display: none;
+        }
+
+        .navbar-component {
+            display: block;
+        }
     }
 }

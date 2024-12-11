@@ -27,6 +27,9 @@
     <ul class="navbar-nav d-none d-md-block">
       <!-- Login button: show if NOT authenticated -->
       <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === false">
+        <span class="material-symbols-outlined">
+          account_circle
+          </span>
         <button id="qsLoginBtn" class="btn btn-primary btn-margin" (click)="loginWithRedirect()">
           Log in
         </button>

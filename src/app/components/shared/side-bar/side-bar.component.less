@@ -2,15 +2,36 @@
 @import "../styles/media-query.less";
 
 .sidebar-container {
+
     width: 14rem;
     height: 100%;
     background: @background-ligth;
-    padding: .5rem 1rem;
+    padding: .5rem 0;
 
     .logo-container {
         display: flex;
         justify-content: center;
         margin: 0 auto;
-        padding: 1rem;
+        padding: 1rem 2rem;
+    }
+
+    .sidebar-ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        list-style: none;
+        height: 20%;
+        padding: 0 ;
+        margin: 0;
+
+        .nav-item {
+            border-bottom: 1px solid @color-primary;
+        }
+        li a{
+            color: @color-primary;
+            text-decoration: none;
+            margin: 0 0 0 1.5rem;
+
+        }
     }
 }

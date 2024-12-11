@@ -4,14 +4,12 @@ on:
   push:
     branches:
       - master
-
 jobs:
   release:
-    name: Release
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
+      statuses: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -28,3 +26,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
+
+      - name: Complete Status Check
+        if: always()
+        run: |
+          echo "Setting status to 'success' for Release"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

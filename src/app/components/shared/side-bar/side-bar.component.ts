@@ -6,11 +6,12 @@ import { AsyncPipe, DOCUMENT, NgIf } from "@angular/common";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { NgbDropdown, NgbDropdownMenu, NgbDropdownToggle } from "@ng-bootstrap/ng-bootstrap";
 import { RouterLink } from "@angular/router";
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-side-bar',
   standalone: true,
-  imports: [FontAwesomeModule, NgbDropdownToggle, NgbDropdownMenu, NgbDropdown, AsyncPipe, NgIf, RouterLink, CommonModule,],
+  imports: [FontAwesomeModule,MatIconModule, NgbDropdownToggle, NgbDropdownMenu, NgbDropdown, AsyncPipe, NgIf, RouterLink, CommonModule,],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.less'
 })

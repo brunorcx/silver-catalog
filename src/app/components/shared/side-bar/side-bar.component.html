@@ -2,85 +2,38 @@
     <div class="logo-container">
         <img src="../../../../assets/logo-ags-nome.png" alt="logo image" class="logo-image--nome" routerLink="/" />
     </div>
-    <ul class="sidebar-ul">
-        <li class="nav-item">
-            <a routerLink="/" class="nav-link" (click)="isCollapsed = !isCollapsed">Home</a>
+    <ul class="sidebar-menu">
+        <li class="nav-item" routerLink="/">
+            <mat-icon>home</mat-icon>
+            <a routerLink="/" class="nav-link">Home</a>
         </li>
-        <li class="nav-item">
-            <a routerLink="external-api" class="nav-link" (click)="isCollapsed = !isCollapsed">Loja</a>
+        <li class="nav-item" routerLink="external-api">
+            <mat-icon>shopping_cart</mat-icon>
+            <a routerLink="external-api" class="nav-link">Loja</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" routerLink="/">
+            <mat-icon>perm_phone_msg</mat-icon>
             <a routerLink="/" class="nav-link" (click)="isCollapsed = !isCollapsed">Contato</a>
         </li>
-        <ul class="sidebar-ul">
-            <!-- Login button: show if NOT authenticated -->
-            <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === false">
-                <span class="material-icons">
-                    account_circle
-                    </span>
-                <button id="login-btn" class="login-btn" (click)="loginWithRedirect()">
-                    Log in
-                </button>
-            </li>
-            <!-- / Login button -->
-
-
-            <!-- Fullsize dropdown: show if authenticated -->
-            <li class="nav-item dropdown" *ngIf="auth.user$ | async as user" ngbDropdown>
-                <a ngbDropdownToggle class="nav-link dropdown-toggle" id="profileDropDown" data-toggle="dropdown">
-                    <!-- Profile image should be set to the profile picture from the id token -->
-                    <img [src]="user.picture" alt="Profile picture" class="nav-user-profile rounded-circle"
-                        style="width: 75px;" />
-                </a>
-                <div class="dropdown-menu dropdown-menu-left" ngbDropdownMenu>
-                    <!-- Show the user's full name from the id token here -->
-                    <div class="dropdown-header">
-                        {{ user.name }}
-                    </div>
-                    <a routerLink="/profile" class="dropdown-item dropdown-profile">
-                        <fa-icon [icon]="faUser" class="mr-3"></fa-icon> Profile
-                    </a>
-                    <button (click)="logout()" class="btn btn-link dropdown-item">
-                        <fa-icon [icon]="faPowerOff" class="mr-3"></fa-icon> Log out
-                    </button>
-                </div>
-            </li>
-            <!-- /Fullsize dropdown -->
-        </ul>
-
-        <!-- Responsive login button: show if NOT authenticated -->
-        <ul class="navbar-nav d-md-none" *ngIf="(auth.isAuthenticated$ | async) === false">
-            <button class="btn btn-primary btn-block" id="qsLoginBtn" (click)="loginWithRedirect()">
-                Log in
-            </button>
-
-        </ul>
-        <!-- /Responsive login button -->
-
-        <!-- Responsive profile dropdown: show if authenticated -->
-        <ul class="navbar-nav d-md-none justify-content-between" *ngIf="auth.user$ | async as user"
-            style="min-height: 170px;">
-            <li class="nav-item">
-                <span class="user-info">
-                    <!-- Profile image should be set to the profile picture from the id token -->
-                    <img alt="Profile picture" class="nav-user-profile d-inline-block rounded-circle mr-3"
-                        style="width: 75px;" [src]="user.picture" />
-                    <!-- Show the user's full name from the id token here -->
-                    <h6 class="d-inline-block">{{ user.name }}</h6>
-                </span>
-            </li>
-            <li>
-                <fa-icon [icon]="faUser" class="mr-3"></fa-icon>
-                <a routerLink="/profile">Profile</a>
-            </li>
-
-            <li>
-                <fa-icon [icon]="faPowerOff" class="mr-3"></fa-icon>
-                <button class="btn btn-link p-0" (click)="logout()">
-                    Log out
-                </button>
-            </li>
-        </ul>
+        <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === false" (click)="loginWithRedirect()">
+            <mat-icon>account_circle</mat-icon>
+            <a id="login-btn" class="nav-link" (click)="loginWithRedirect()">Log in</a>
+        </li>
+        <li class="nav-item submenu" *ngIf="auth.user$ | async as user">
+            <div>
+                <img [src]="user.picture" alt="Profile picture" class="user-img">
+                <a href="" class="nav-link">{{user.given_name}}</a>
+            </div>
+            <ul class="sidebar-submenu">
+                <li class="nav-item" routerLink="/profile">
+                    <mat-icon>person</mat-icon>
+                    <a routerLink="/profile" class="nav-link">Perfil</a>
+                </li>
+                <li class="nav-item" (click)="logout()">
+                    <mat-icon>logout</mat-icon>
+                    <a class="nav-link" (click)="logout()">Log out</a>
+                </li>
+            </ul>
+        </li>
     </ul>
-
 </div>

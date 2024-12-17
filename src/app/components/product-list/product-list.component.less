@@ -1,0 +1,99 @@
+@import "../../shared/styles/global_colors.less";
+@import "../../shared/styles/breakpoints.less";
+
+.product-list {
+  background-color: @body-bg;
+  color: @text-color;
+  padding: 1rem;
+
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: @primary-accent;
+    margin-bottom: 1.5rem;
+  }
+
+  // Reset list styles and ensure proper layout
+  .card {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-start;
+    flex-direction: row;
+    border: none;
+
+    // Frosted glass effect for each card
+    li {
+      padding: 1rem;
+      box-sizing: border-box;
+      width: calc((100% - 2rem) / 3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      // Apply frost glass effect
+      backdrop-filter: blur(10px); /* Blur background of card */
+      background-color: @blur-bg; /* Slight transparency to let blur show through */
+      -webkit-backdrop-filter: blur(10px); /* For Safari support */
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+
+        .price {
+          /* Correct the hover on the child */
+          color: @secondary-accent;
+        }
+      }
+
+      img {
+        max-width: 100%; /* Restricts the image width to the container width */
+        object-fit: cover; /* Ensures the image is cropped proportionally */
+        border-radius: 8px; /* Matches the card's rounded corners (optional) */
+        display: block;
+        margin-bottom: 1rem;
+      }
+
+      .product-details {
+        display: flex;
+        flex-direction: column;
+        .card-title {
+          font-size: 1.25rem;
+          margin-bottom: 0.5rem;
+          color: @primary-accent;
+        }
+
+        .card-text {
+          font-size: 1rem;
+          margin-bottom: 1rem;
+          color: @text-color;
+        }
+
+        .price {
+          transition: color 0.3s ease;
+        }
+      }
+    }
+  }
+
+  // Breakpoints for responsiveness
+  @media (max-width: @breakpoint-lg) {
+    .card li {
+      width: calc((100% - 1rem) / 2);
+    }
+  }
+
+  @media (max-width: @breakpoint-md) {
+    .card li {
+      width: calc((100% - 1rem) / 2);
+    }
+  }
+
+  @media (max-width: @breakpoint-sm) {
+    .card li {
+      width: 100%;
+    }
+  }
+}

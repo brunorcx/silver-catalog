@@ -1,0 +1,13 @@
+<div class="product-list">
+  <h2>Silver Products</h2>
+  <ul class="card">
+    <li *ngFor="let product of products">
+      <img src="https://static.wixstatic.com/media/84770f_91e1ebf6735e46828ec58becb438c0b4~mv2.jpeg/v1/fit/w_1440,h_1440,q_90/84770f_91e1ebf6735e46828ec58becb438c0b4~mv2.webp">
+      <div class="product-details">
+        <h3 class="card-title">{{ product.name }}</h3>
+        <p class="card-text">{{ product.description }}</p>
+        <p class="price">{{ product.price | currency }}</p>
+      </div>
+    </li>
+  </ul>
+</div>

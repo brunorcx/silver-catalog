@@ -11,34 +11,34 @@
     <span [ngClass]="{'nav-hamburger': isCollapsed, 'active': !isCollapsed}"></span>
 
   </button>
-  
+
   <div class="spacer"></div>
   <div class="user-area">
     @if ((auth.isAuthenticated$ | async) === false) {
-      <div class="user-area">
-        <mat-icon>account_circle</mat-icon>
-      </div>
+    <div class="user-area" (click)="loginWithRedirect()">
+      <mat-icon>account_circle</mat-icon>
+    </div>
     }
     @if (user) {
-      <div class="user-area">
-        <img [src]="user.picture" alt="Profile picture" class="user-img">
-        <!-- <div class="user-menu" >
-          <div>
-              <img [src]="user.picture" alt="Profile picture" class="user-img">
-              <a href="" class="nav-link">{{user.given_name}}</a>
-          </div>
-          <ul class="sidebar-submenu">
-              <li class="nav-item" routerLink="/profile">
-                  <mat-icon>person</mat-icon>
-                  <a routerLink="/profile" class="nav-link">Perfil</a>
-              </li>
-              <li class="nav-item" (click)="logout()">
-                  <mat-icon>logout</mat-icon>
-                  <a class="nav-link" (click)="logout()">Log out</a>
-              </li>
-          </ul>
-        </div> -->
+    <div class="user-area" (click)="userCollapsed = !userCollapsed">
+      <img [src]="user.picture" alt="Profile picture" class="user-img">
+      <div [class]="userCollapsed ? 'hidden' : 'user-menu'">
+        <ul class="user-submenu">
+          <li class="nav-item">
+            <a href="" class="nav-link">{{user.given_name}}</a>
+
+          </li>
+          <li class="nav-item" routerLink="/profile">
+            <mat-icon>person</mat-icon>
+            <a routerLink="/profile" class="nav-link">Perfil</a>
+          </li>
+          <li class="nav-item" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <a class="nav-link" (click)="logout()">Log out</a>
+          </li>
+        </ul>
       </div>
+    </div>
     }
   </div>
   <div class="menu collapse navbar-collapse" id="navbarNav" [ngbCollapse]="isCollapsed">
@@ -64,7 +64,7 @@
       </li>
       } @else if (user) {
       <li class="nav-item">
-        <mat-icon>person</mat-icon>
+        <img [src]="user.picture" alt="Profile picture" class="user-img">
         <a routerLink="/profile" class="nav-link">
           {{ user.name }}
         </a>

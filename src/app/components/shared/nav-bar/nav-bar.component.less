@@ -5,7 +5,7 @@
     display: flex;
     padding: .5rem 1.5rem;
     margin: 0;
-    background-color: @background-ligth;
+    background-color: #eff1f5;
     align-items: center;
     justify-content: center;
 
@@ -27,6 +27,48 @@
 
     .navbar-toggler {
         display: none;
+        height: 1rem;
+    }
+
+    .spacer {
+        flex-grow: 1;
+    }
+
+    .user-area {
+        display: flex;
+        align-items: center;
+    }
+
+    .user-area img {
+        height: 3rem;
+        border-radius: 50%;
+    }
+
+    .menu {
+        .navbar-menu {
+            list-style-type: none;
+            text-decoration: none;
+            margin: 0;
+            padding: 1rem;
+
+            .nav-item {
+                display: flex;
+                text-decoration: none;
+
+                mat-icon {
+                    color: @color-primary;
+                    margin: 0 1rem;
+                    fill: @color-primary;
+                }
+
+                .nav-link {
+                    color: @color-primary;
+                    text-decoration: none;
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+        }
     }
 }
 
@@ -115,6 +157,12 @@
                     transform: rotate(-45deg) translateY(0px);
                 }
             }
+        }
+        .spacer {
+            display: none;
+        }
+        .user-area{
+            display: none;
         }
     }
 }

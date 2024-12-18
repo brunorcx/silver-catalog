@@ -21,17 +21,6 @@ export class ExternalApiComponent {
     this.audience = this.configFactory.get()?.authorizationParams.audience;
   }
 
-  // Token is already generated once the user logs in. So we don't need this post request
-  // requestToken() {
-  //   this.api.requestAccessToken().subscribe({
-  //     next: (res) => {
-  //       this.hasApiError = false;
-  //       this.responseJson = JSON.stringify(res, null, 2).trim();
-  //     },
-  //     error: () => (this.hasApiError = true),
-  //   });
-  // }
-
   getProducts() {
     this.api.getProducts().subscribe({
       next: (res) => {

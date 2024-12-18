@@ -1,0 +1,13 @@
+.main-container {
+  position: relative; // Maintain normal document flow
+  background: linear-gradient(359deg, #9fb6c491, transparent);
+  z-index: 1; // Ensure it remains in flow but below the navbar
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 550px;
+    object-fit: cover;
+    z-index: -1; // Push the image behind content within main-container
+  }
+}

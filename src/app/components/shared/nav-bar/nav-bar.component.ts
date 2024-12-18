@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class NavBarComponent implements OnInit, OnDestroy {
   isCollapsed = true;
+  userCollapsed = true;
   faUser = faUser;
   faPowerOff = faPowerOff;
   user: any;

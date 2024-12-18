@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-side-bar',
   standalone: true,
-  imports: [FontAwesomeModule,MatIconModule, NgbDropdownToggle, NgbDropdownMenu, NgbDropdown, AsyncPipe, NgIf, RouterLink, CommonModule,],
+  imports: [FontAwesomeModule, MatIconModule, NgbDropdownToggle, NgbDropdownMenu, NgbDropdown, AsyncPipe, NgIf, RouterLink, CommonModule,],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.less'
 })

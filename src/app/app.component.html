@@ -1,9 +1,17 @@
-<div class="d-flex flex-column h-100">
-  <app-nav-bar></app-nav-bar>
+<div class="main-container">
+  <section class="nav-bar-section">
+    <app-nav-bar class="navbar-component"></app-nav-bar>
+  </section>
+  
+  <section class="sidebar-section">
+    <app-side-bar class="sidebar-component"></app-side-bar>
+  </section>
 
-  <div>
+  <section class="body-section">
     <router-outlet></router-outlet>
-  </div>
+  </section>
 
-  <app-footer></app-footer>
+  <section class="footer-section">
+    <app-footer></app-footer>
+  </section>
 </div>

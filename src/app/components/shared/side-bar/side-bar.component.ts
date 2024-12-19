@@ -1,25 +1,27 @@
 import { Component, Inject } from "@angular/core";
-import { faUser, faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import { CommonModule } from '@angular/common';
 import { AuthService } from "@auth0/auth0-angular";
+import { faUser, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { AsyncPipe, DOCUMENT, NgIf } from "@angular/common";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { NgbCollapse, NgbDropdown, NgbDropdownMenu, NgbDropdownToggle } from "@ng-bootstrap/ng-bootstrap";
+import { NgbDropdown, NgbDropdownMenu, NgbDropdownToggle } from "@ng-bootstrap/ng-bootstrap";
 import { RouterLink } from "@angular/router";
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: "app-nav-bar",
-  templateUrl: "./nav-bar.component.html",
-  styleUrls: ["./nav-bar.component.less"],
+  selector: 'app-side-bar',
   standalone: true,
-  imports: [FontAwesomeModule, NgbDropdownToggle, NgbDropdownMenu, NgbDropdown, NgbCollapse, AsyncPipe, NgIf, RouterLink],
+  imports: [FontAwesomeModule, MatIconModule, NgbDropdownToggle, NgbDropdownMenu, NgbDropdown, AsyncPipe, NgIf, RouterLink, CommonModule,],
+  templateUrl: './side-bar.component.html',
+  styleUrl: './side-bar.component.less'
 })
-export class NavBarComponent {
+export class SideBarComponent {
   isCollapsed = true;
   faUser = faUser;
   faPowerOff = faPowerOff;
 
   constructor(public auth: AuthService, @Inject(DOCUMENT) private doc: Document) {}
-
+  
   loginWithRedirect() {
     this.auth.loginWithRedirect();
   }

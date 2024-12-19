@@ -1,0 +1,101 @@
+@import "../styles/colors.less";
+@import "../styles/media-query.less";
+
+.sidebar-container {
+
+    width: 14rem;
+    height: 100%;
+    background: #EFF1F5;
+    padding: .5rem 0;
+    box-shadow: 1px 1px 2px @background-dark;
+
+    .logo-container {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+    }
+
+    .sidebar-menu {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        height: 20%;
+        padding: 0;
+        margin: 0;
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid @color-primary;
+            padding: 1rem 0;
+
+            mat-icon {
+                color: @color-primary;
+                margin: 0 0 0 1.5rem;
+            }
+
+            a {
+                color: @color-primary;
+                text-decoration: none;
+
+            }
+
+            .user-img {
+                border-radius: 50%;
+                display: block;
+                width: 2rem;
+                height: 2rem;
+                margin: 0 0 0 1.5rem;
+                overflow: hidden;
+            }
+
+            &:hover {
+                transform: 2s all;
+
+                background-color: @background-dark;
+                color: @color-secondary;
+
+                a {
+                    color: @color-secondary;
+                }
+            }
+
+            .sidebar-submenu {
+                flex-direction: column;
+                align-items: normal;
+                list-style: none;
+                height: 20%;
+                padding: 0;
+                margin: 0;
+                list-style-type: none;
+
+                .nav-item {
+                    flex-direction: column;
+                    align-items: normal;
+
+                    &:hover {
+                        background-color: @background-ligth;
+                        color: @color-primary;
+
+                        a {
+                            color: @color-primary
+                        }
+                    }
+                }
+            }
+        }
+
+        .submenu {
+            flex-direction: column;
+            align-items: normal;
+            border-bottom: none;
+
+            div {
+                display: flex;
+                border-bottom: 1px solid @color-primary;
+            }
+        }
+
+    }
+}

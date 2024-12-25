@@ -1,7 +1,19 @@
 {
-  "branches": ["feature/*", "hotfix/*"],
+  "branches": [{ "name": "master" }, { "name": "release*", "channel": false }],
   "plugins": [
-    "@semantic-release/commit-analyzer",
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "releaseRules": [
+          { "type": "breaking", "release": "major" },
+          { "type": "feat", "release": "minor" },
+          { "type": "fix", "release": "patch" },
+          { "type": "refactor", "release": false },
+          { "type": "docs", "release": false }
+        ],
+        "preset": "angular"
+      }
+    ],
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
     [

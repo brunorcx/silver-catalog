@@ -6,11 +6,10 @@ import { ProductListComponent } from "../../components/product-list/product-list
 import { MainBannerComponent } from "../../components/main-banner/main-banner.component";
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.less"],
-  standalone: true,
-  imports: [LoadingComponent, AsyncPipe, NgIf, ProductListComponent, MainBannerComponent],
+    selector: "app-home",
+    templateUrl: "./home.component.html",
+    styleUrls: ["./home.component.less"],
+    imports: [LoadingComponent, AsyncPipe, NgIf, ProductListComponent, MainBannerComponent]
 })
 export class HomeComponent {
   constructor(public auth: AuthService) {}

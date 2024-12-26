@@ -11,11 +11,10 @@ import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
-  selector: "app-nav-bar",
-  templateUrl: "./nav-bar.component.html",
-  styleUrls: ["./nav-bar.component.less"],
-  standalone: true,
-  imports: [FontAwesomeModule, MatIconModule, NgbDropdownToggle, NgbDropdownMenu, NgbDropdown, NgbCollapse, AsyncPipe, NgIf, RouterLink, CommonModule],
+    selector: "app-nav-bar",
+    templateUrl: "./nav-bar.component.html",
+    styleUrls: ["./nav-bar.component.less"],
+    imports: [FontAwesomeModule, MatIconModule, NgbDropdownToggle, NgbDropdownMenu, NgbDropdown, NgbCollapse, AsyncPipe, NgIf, RouterLink, CommonModule]
 })
 export class NavBarComponent implements OnInit, OnDestroy {
   isCollapsed = true;

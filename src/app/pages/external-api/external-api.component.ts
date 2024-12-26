@@ -5,11 +5,10 @@ import { HighlightModule } from "ngx-highlightjs";
 import { ApiService } from "src/app/api.service";
 
 @Component({
-  selector: "app-external-api",
-  templateUrl: "./external-api.component.html",
-  styleUrls: ["./external-api.component.less"],
-  standalone: true,
-  imports: [HighlightModule, NgClass, NgIf],
+    selector: "app-external-api",
+    templateUrl: "./external-api.component.html",
+    styleUrls: ["./external-api.component.less"],
+    imports: [HighlightModule, NgClass, NgIf]
 })
 export class ExternalApiComponent {
   responseJson: string;

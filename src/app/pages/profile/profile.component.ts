@@ -4,11 +4,10 @@ import { AuthService } from "@auth0/auth0-angular";
 import { HighlightModule } from "ngx-highlightjs";
 
 @Component({
-  selector: "app-profile",
-  templateUrl: "./profile.component.html",
-  styleUrls: ["./profile.component.less"],
-  standalone: true,
-  imports: [HighlightModule, AsyncPipe, NgIf],
+    selector: "app-profile",
+    templateUrl: "./profile.component.html",
+    styleUrls: ["./profile.component.less"],
+    imports: [HighlightModule, AsyncPipe, NgIf]
 })
 export class ProfileComponent implements OnInit {
   profileJson: string = null;

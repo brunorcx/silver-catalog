@@ -1,31 +1,46 @@
-import { Component, Inject } from "@angular/core";
-import { CommonModule } from '@angular/common';
-import { AuthService } from "@auth0/auth0-angular";
-import { faUser, faPowerOff } from "@fortawesome/free-solid-svg-icons";
-import { AsyncPipe, DOCUMENT, NgIf } from "@angular/common";
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
 import { NgbDropdown, NgbDropdownMenu, NgbDropdownToggle } from "@ng-bootstrap/ng-bootstrap";
 import { RouterLink } from "@angular/router";
-import { MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from "@angular/material/icon";
+import { Auth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User } from "@angular/fire/auth";
 
 @Component({
-    selector: 'app-side-bar',
-    imports: [FontAwesomeModule, MatIconModule, NgbDropdownToggle, NgbDropdownMenu, NgbDropdown, AsyncPipe, NgIf, RouterLink, CommonModule,],
-    templateUrl: './side-bar.component.html',
-    styleUrl: './side-bar.component.less'
+  selector: "app-side-bar",
+  imports: [MatIconModule, NgbDropdownToggle, NgbDropdownMenu, NgbDropdown, RouterLink, CommonModule],
+  templateUrl: "./side-bar.component.html",
+  styleUrls: ["./side-bar.component.less"],
+  standalone: true,
 })
 export class SideBarComponent {
   isCollapsed = true;
-  faUser = faUser;
-  faPowerOff = faPowerOff;
 
-  constructor(public auth: AuthService, @Inject(DOCUMENT) private doc: Document) {}
-  
-  loginWithRedirect() {
-    this.auth.loginWithRedirect();
+  user: User | null = null;
+
+  constructor(private auth: Auth) {
+    onAuthStateChanged(this.auth, (user) => {
+      this.user = user;
+    });
   }
 
-  logout() {
-    this.auth.logout({ logoutParams: { returnTo: this.doc.location.origin } });
+  async loginWithRedirect() {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(this.auth, provider);
+    } catch (error) {
+      console.error("Login failed", error);
+    }
+  }
+
+  async logout() {
+    try {
+      await signOut(this.auth);
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  }
+
+  get isAuthenticated(): boolean {
+    return this.user !== null;
   }
 }

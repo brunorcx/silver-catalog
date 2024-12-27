@@ -8,10 +8,11 @@ import { MatIconModule } from "@angular/material/icon";
 import { FirebaseStorageService } from "src/app/core/services/firebase-storage.service";
 
 @Component({
-    selector: "app-product-management",
-    imports: [ReactiveFormsModule, CommonModule, CapitalizePipe, MatIconModule],
-    templateUrl: "./product-management.component.html",
-    styleUrl: "./product-management.component.less"
+  selector: "app-product-management",
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, CapitalizePipe, MatIconModule],
+  templateUrl: "./product-management.component.html",
+  styleUrl: "./product-management.component.less",
 })
 export class ProductManagementComponent {
   productsList: Product[] = [];

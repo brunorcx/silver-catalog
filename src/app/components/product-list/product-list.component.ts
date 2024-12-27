@@ -5,10 +5,11 @@ import { Product } from "src/app/interfaces/products.interface";
 import { CapitalizePipe } from "src/app/shared/pipes/capitalize.pipe";
 
 @Component({
-    selector: "app-product-list",
-    imports: [CommonModule, CapitalizePipe],
-    templateUrl: "./product-list.component.html",
-    styleUrl: "./product-list.component.less"
+  selector: "app-product-list",
+  imports: [CommonModule, CapitalizePipe],
+  templateUrl: "./product-list.component.html",
+  styleUrl: "./product-list.component.less",
+  standalone: true,
 })
 export class ProductListComponent {
   products = [

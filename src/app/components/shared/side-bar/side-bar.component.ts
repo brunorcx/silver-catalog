@@ -1,46 +1,42 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../../../core/services/auth.service";
+import { User } from "firebase/auth"; // Import User type from Firebase
 import { CommonModule } from "@angular/common";
-import { NgbDropdown, NgbDropdownMenu, NgbDropdownToggle } from "@ng-bootstrap/ng-bootstrap";
 import { RouterLink } from "@angular/router";
 import { MatIconModule } from "@angular/material/icon";
-import { Auth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User } from "@angular/fire/auth";
 
 @Component({
   selector: "app-side-bar",
-  imports: [MatIconModule, NgbDropdownToggle, NgbDropdownMenu, NgbDropdown, RouterLink, CommonModule],
   templateUrl: "./side-bar.component.html",
   styleUrls: ["./side-bar.component.less"],
   standalone: true,
+  imports: [MatIconModule, RouterLink, CommonModule], // Import required modules
 })
-export class SideBarComponent {
+export class SideBarComponent implements OnInit {
   isCollapsed = true;
+  user: User | null = null; // Default user to null to reflect unauthenticated state
 
-  user: User | null = null;
+  constructor(private authService: AuthService) {}
 
-  constructor(private auth: Auth) {
-    onAuthStateChanged(this.auth, (user) => {
-      this.user = user;
+  ngOnInit(): void {
+    // Access the user signal from AuthService, subscribing to changes in user state
+    this.authService.user$.subscribe((user) => {
+      this.user = user; // Set user when auth state changes
     });
   }
 
-  async loginWithRedirect() {
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(this.auth, provider);
-    } catch (error) {
-      console.error("Login failed", error);
-    }
+  // Login method using the AuthService's Google login
+  loginWithRedirect() {
+    this.authService.loginWithGoogle(); // Redirect login method
   }
 
-  async logout() {
-    try {
-      await signOut(this.auth);
-    } catch (error) {
-      console.error("Logout failed", error);
-    }
+  // Logout method using the AuthService's logout functionality
+  logout() {
+    this.authService.logout(); // Logout method
   }
 
+  // Check if the user is authenticated by checking if user is not null
   get isAuthenticated(): boolean {
-    return this.user !== null;
+    return this.user !== null; // True if user is logged in (user exists)
   }
 }

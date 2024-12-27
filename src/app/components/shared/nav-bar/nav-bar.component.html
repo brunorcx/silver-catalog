@@ -7,23 +7,27 @@
   </div>
 
   <button class="navbar-toggler" type="button" [attr.aria-expanded]="!isCollapsed" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed">
-    <span [ngClass]="{ 'nav-hamburger': isCollapsed, active: !isCollapsed }"></span>
+    <span [class.nav-hamburger]="isCollapsed" [class.active]="!isCollapsed"></span>
   </button>
 
   <div class="spacer"></div>
 
   <div class="user-area">
+    <!-- If user is not authenticated, show login button -->
     <div *ngIf="!isAuthenticated" class="user-area" (click)="loginWithRedirect()">
       <mat-icon>account_circle</mat-icon>
     </div>
-    <div *ngIf="user" class="user-area" (click)="userCollapsed = !userCollapsed">
-      <img [src]="user.photoURL" alt="Profile picture" class="user-img" />
-      <div [class]="userCollapsed ? 'hidden' : 'user-menu'">
+
+    <!-- If user is authenticated and profile exists, show profile picture and menu -->
+    <div *ngIf="isAuthenticated && user" class="user-area" (click)="userCollapsed = !userCollapsed">
+      <!-- Profile picture -->
+      <img [src]="user?.photoURL" alt="Profile picture" class="user-img" />
+      <div [class.hidden]="userCollapsed" [class.user-menu]="!userCollapsed">
         <ul class="user-submenu">
           <li class="nav-item">
-            <a href="" class="nav-link">{{ user.displayName }}</a>
+            <a href="" class="nav-link">{{ user?.displayName }}</a>
           </li>
-          <li class="nav-item" routerLink="/profile">
+          <li class="nav-item">
             <mat-icon>person</mat-icon>
             <a routerLink="/profile" class="nav-link">Perfil</a>
           </li>
@@ -36,7 +40,7 @@
     </div>
   </div>
 
-  <div class="menu collapse navbar-collapse" [ngbCollapse]="isCollapsed">
+  <div class="menu navbar-collapse" [class.collapse]="isCollapsed">
     <ul class="navbar-menu">
       <li class="nav-item">
         <mat-icon>home</mat-icon>
@@ -56,13 +60,14 @@
       </li>
       <li *ngIf="!isAuthenticated" class="nav-item">
         <mat-icon>account_circle</mat-icon>
-        <a class="nav-link" (click)="loginWithRedirect()">Log in</a>
+        <a class="nav-link" (click)="loginWithPopup()">Log in</a>
       </li>
-      <li *ngIf="user" class="nav-item">
-        <img [src]="user.photoURL" alt="Profile picture" class="user-img" />
-        <a routerLink="/profile" class="nav-link">{{ user.displayName }}</a>
+      <!-- User profile and logout links if authenticated -->
+      <li *ngIf="isAuthenticated && user" class="nav-item">
+        <img [src]="user?.photoURL" alt="Profile picture" class="user-img" />
+        <a routerLink="/profile" class="nav-link">{{ user?.displayName }}</a>
       </li>
-      <li *ngIf="user" class="nav-item">
+      <li *ngIf="isAuthenticated && user" class="nav-item">
         <mat-icon>logout</mat-icon>
         <a class="nav-link" (click)="logout()">Log out</a>
       </li>

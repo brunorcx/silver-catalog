@@ -7,6 +7,12 @@ import { AppComponent } from "./app/app.component";
 import { routes } from "./app/app-routing.module";
 import { provideHttpClient } from "@angular/common/http";
 
+// Ensure you provide Firebase and Auth services properly here
 bootstrapApplication(AppComponent, {
-  providers: [provideRouter(routes), provideHttpClient(), provideFirebaseApp(() => initializeApp(environment.firebase)), provideAuth(() => getAuth())],
+  providers: [
+    provideRouter(routes),
+    provideHttpClient(),
+    provideFirebaseApp(() => initializeApp(environment.firebase)), // Global Firebase initialization
+    provideAuth(() => getAuth()), // Firebase Auth initialization
+  ],
 });

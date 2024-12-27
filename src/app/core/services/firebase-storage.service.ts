@@ -1,4 +1,3 @@
-// src/app/firebase-storage.service.ts
 import { Injectable } from "@angular/core";
 import { initializeApp } from "firebase/app";
 import { getStorage, FirebaseStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject, listAll } from "firebase/storage";
@@ -12,7 +11,7 @@ export class FirebaseStorageService {
 
   constructor() {
     const app = initializeApp(firebaseConfig);
-    this.storage = getStorage(app);
+    this.storage = getStorage(); // Uses already initialized app from main.ts
   }
 
   /**

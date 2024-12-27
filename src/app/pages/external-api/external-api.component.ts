@@ -1,3 +1,4 @@
+import { NgIf } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { Auth } from "@angular/fire/auth"; // Firebase Auth
 import { ApiService } from "src/app/api.service";
@@ -7,12 +8,13 @@ import { ApiService } from "src/app/api.service";
   templateUrl: "./external-api.component.html",
   styleUrls: ["./external-api.component.less"],
   standalone: true,
+  imports: [NgIf],
 })
 export class ExternalApiComponent implements OnInit {
-  responseJson: string = "";
+  responseJson = "";
   audience: string | undefined;
-  hasApiError: boolean = false;
-  productsList: string = "";
+  hasApiError = false;
+  productsList = "";
   user: any; // For storing user data
 
   constructor(private api: ApiService, private auth: Auth) {}

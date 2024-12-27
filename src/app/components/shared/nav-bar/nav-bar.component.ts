@@ -1,54 +1,45 @@
 import { Component, OnInit } from "@angular/core";
-import { Auth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User } from "@angular/fire/auth";
-import { CommonModule } from "@angular/common";
-import { NgIf } from "@angular/common";
-import { NgbCollapse } from "@ng-bootstrap/ng-bootstrap";
+import { AuthService } from "../../../core/services/auth.service";
+import { User } from "firebase/auth"; // Import User type from Firebase
+import { MatIconModule } from "@angular/material/icon"; // Import MatIconModule
+import { NgIf } from "@angular/common"; // Import NgIf for structural directives
 import { RouterLink } from "@angular/router";
-import { MatIconModule } from "@angular/material/icon";
-import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 
 @Component({
   selector: "app-nav-bar",
   templateUrl: "./nav-bar.component.html",
   styleUrls: ["./nav-bar.component.less"],
   standalone: true,
-  imports: [MatIconModule, NgbCollapse, NgIf, RouterLink, CommonModule, AngularFireAuthModule],
+  imports: [MatIconModule, NgIf, RouterLink], // Import necessary modules
 })
 export class NavBarComponent implements OnInit {
   isCollapsed = true;
   userCollapsed = true;
-  user: User | null = null;
+  user: User | null = null; // Start user as null to reflect auth state properly
 
-  constructor(private auth: Auth) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    // Listen to auth state changes
-    onAuthStateChanged(this.auth, (user) => {
-      this.user = user;
+    // Directly subscribe to user from AuthService using signal
+    this.authService.user$.subscribe((user) => {
+      this.user = user; // Update user state when auth state changes
+      console.log(user, "user");
     });
   }
 
-  // Login with Google Auth
-  async loginWithRedirect() {
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(this.auth, provider);
-    } catch (error) {
-      console.error("Login failed", error);
-    }
+  loginWithRedirect() {
+    this.authService.loginWithGoogle(); // Handle login with Google redirect
   }
 
-  // Logout function
-  async logout() {
-    try {
-      await signOut(this.auth);
-    } catch (error) {
-      console.error("Logout failed", error);
-    }
+  loginWithPopup() {
+    this.authService.loginWithGoogle(); // Handle login with Google popup
   }
 
-  // Check if user is authenticated
+  logout() {
+    this.authService.logout(); // Handle logout
+  }
+
   get isAuthenticated(): boolean {
-    return this.user !== null;
+    return this.user !== null; // Return true if user is not null
   }
 }

@@ -49,7 +49,7 @@ export class ProductManagementComponent {
     };
 
     if (this.productForm.valid) {
-      this.storageService.uploadFile("images", this.imageFile).then(
+      this.storageService.uploadFile("images/" + this.imageFile.name, this.imageFile).then(
         (url) => {
           product.image = url;
           this.saveProduct(product);

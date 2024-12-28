@@ -4,6 +4,7 @@ import { getStorage, FirebaseStorage, ref, uploadBytesResumable, getDownloadURL,
 import firebaseConfig from "../../../../firebase_config.json";
 import { AuthService } from "./auth.service";
 import { User } from "firebase/auth";
+import { v4 as uuidv4 } from "uuid";
 
 @Injectable({
   providedIn: "root",
@@ -26,37 +27,28 @@ export class FirebaseStorageService {
    * @param file - File to upload
    * @returns Promise<string> - Download URL of the uploaded file
    */
-  async uploadFile(path: string, file: File): Promise<void> {
-    try {
-      // Get current user token
-      if (!this.user) throw new Error("User not authenticated.");
+  async uploadFile(path: string, file: File): Promise<string> {
+    const uniqueFileName = `${uuidv4()}_${file.name}`; // Add unique ID to the file name
+    const firebaseUrl = `https://firebasestorage.googleapis.com/v0/b/${firebaseConfig.storageBucket}/o?name=${encodeURIComponent(path + uniqueFileName)}`;
 
-      const idToken = await this.user.getIdToken();
-      const metadata = {
-        name: path, // e.g., 'images/Ring.jpg'
-        contentType: file.type,
-      };
+    const response = await fetch(firebaseUrl, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${await this.user.getIdToken()}`,
+        "Content-Type": file.type,
+      },
+      body: file,
+    });
 
-      // Firebase storage endpoint
-      const firebaseUrl = `https://firebasestorage.googleapis.com/v0/b/${firebaseConfig.storageBucket}/o?name=${encodeURIComponent(path)}`;
-
-      const response = await fetch(firebaseUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          Authorization: `Bearer ${idToken}`, // Add Bearer token
-        },
-        body: JSON.stringify(metadata),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error uploading file: ${response.status} - ${response.statusText}`);
-      }
-
-      console.log("File uploaded successfully.");
-    } catch (error) {
-      console.error("Upload failed:", error.message);
+    if (!response.ok) {
+      throw new Error("Failed to upload file to Firebase Storage");
     }
+
+    // Parse the JSON response to get the download URL
+    const responseBody = await response.json();
+    const downloadURL = `https://firebasestorage.googleapis.com/v0/b/${firebaseConfig.storageBucket}/o/${encodeURIComponent(responseBody.name)}?alt=media`;
+
+    return downloadURL;
   }
 
   /**

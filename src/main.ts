@@ -6,12 +6,15 @@ import { environment } from "./environments/environment";
 import { AppComponent } from "./app/app.component";
 import { routes } from "./app/app-routing.module";
 import { provideHttpClient } from "@angular/common/http";
+import { provideAnimations } from "@angular/platform-browser/animations";
+import { provideToastr } from "ngx-toastr";
 
-// Ensure you provide Firebase and Auth services properly here
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     provideHttpClient(),
+    provideAnimations(), // Required animations providers
+    provideToastr(), // Toastr providers
     provideFirebaseApp(() => initializeApp(environment.firebase)), // Global Firebase initialization
     provideAuth(() => getAuth()), // Firebase Auth initialization
   ],

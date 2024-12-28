@@ -16,7 +16,6 @@ export class AuthGuard implements CanActivate {
     return this.user$.pipe(
       map((user) => {
         if (user) {
-          console.log(user, "User is authenticated");
           return true; // User is authenticated, allow access
         } else {
           this.router.navigate(["/"]); // If not authenticated, redirect to homepage

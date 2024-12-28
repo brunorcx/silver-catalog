@@ -49,13 +49,17 @@ export class ProductManagementComponent {
     };
 
     if (this.productForm.valid) {
-      this.storageService.uploadFile("images/" + this.imageFile.name, this.imageFile).then(
-        (url) => {
-          product.image = url;
-          this.saveProduct(product);
-        },
-        (err) => console.error("Error uploading image:", err)
-      );
+      if (this.imageFile) {
+        this.storageService.uploadFile("images/" + this.imageFile.name, this.imageFile).then(
+          (url) => {
+            product.image = url;
+            this.saveProduct(product);
+          },
+          (err) => console.error("Error uploading image:", err)
+        );
+      } else {
+        this.saveProduct(product);
+      }
     }
   }
 

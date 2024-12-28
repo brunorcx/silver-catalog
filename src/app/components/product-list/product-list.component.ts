@@ -32,21 +32,4 @@ export class ProductListComponent {
       error: () => (this.hasApiError = true),
     });
   }
-
-  createProduct() {
-    //Example of a hardcoded product
-    const newProduct: Product = {
-      name: "Pulseira",
-      description: "Great bracelet",
-      price: 180.5,
-      availability: true,
-      category: ["bracelet"],
-      image: "https://example.com/image.jpg",
-    };
-
-    this.api.createProduct(newProduct).subscribe({
-      next: (product) => console.log("Product Created:", product),
-      error: (err) => console.error("Error creating product:", err),
-    });
-  }
 }

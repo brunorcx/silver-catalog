@@ -2,7 +2,9 @@
   <h2>Silver Products</h2>
   <ul class="card">
     <li *ngFor="let product of productsList">
-      <img src="https://static.wixstatic.com/media/84770f_91e1ebf6735e46828ec58becb438c0b4~mv2.jpeg/v1/fit/w_1440,h_1440,q_90/84770f_91e1ebf6735e46828ec58becb438c0b4~mv2.webp">
+      <img
+        src="{{ product.image? product.image: 'https://firebasestorage.googleapis.com/v0/b/rodriguesdev-2d63d.appspot.com/o/images%2Fno_image.png?alt=media&token=4af2c1c2-3f7c-439a-8f43-26183123748d'}}"
+        alt="Imagem do Produto" />
       <div class="product-details">
         <h3 class="card-title">{{product.name | capitalize }}</h3>
         <p class="card-text">{{ product?.description }}</p>

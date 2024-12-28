@@ -23,7 +23,6 @@ export class NavBarComponent implements OnInit {
     // Directly subscribe to user from AuthService using signal
     this.authService.user$.subscribe((user) => {
       this.user = user; // Update user state when auth state changes
-      console.log(user, "user");
     });
   }
 

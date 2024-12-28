@@ -34,7 +34,7 @@
 
       <div class="form-group">
         <label for="image">Imagem:</label>
-        <input id="image" type="file" (change)="onImageChange($event)" accept="image/*" [disabled]="!editingProduct" /> <!-- Allow image change only during editing -->
+        <input id="image" type="file" (change)="onImageChange($event)" accept="image/*" /> <!-- Allow image change only during editing -->
       </div>
 
       <!-- Display the current image if available -->

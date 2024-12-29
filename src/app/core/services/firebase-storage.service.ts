@@ -1,20 +1,21 @@
 import { Injectable } from "@angular/core";
 import { initializeApp } from "firebase/app";
-import { getStorage, FirebaseStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject, listAll } from "firebase/storage";
-import firebaseConfig from "../../../../firebase_config.json";
+import { getStorage, FirebaseStorage, ref, getDownloadURL, deleteObject, listAll } from "firebase/storage";
 import { AuthService } from "./auth.service";
 import { User } from "firebase/auth";
 import { v4 as uuidv4 } from "uuid";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class FirebaseStorageService {
+  firebaseConfig = environment.firebase;
   private storage: FirebaseStorage;
   user: User | null = null; // Start user as null to reflect auth state properly
 
   constructor(private authService: AuthService) {
-    const app = initializeApp(firebaseConfig);
+    const app = initializeApp(this.firebaseConfig);
     this.storage = getStorage(); // Uses already initialized app from main.ts
     this.authService.user$.subscribe((user) => {
       this.user = user; // Update user state when auth state changes
@@ -29,7 +30,7 @@ export class FirebaseStorageService {
    */
   async uploadFile(path: string, file: File): Promise<string> {
     const uniqueFileName = `${uuidv4()}_${file.name}`; // Add unique ID to the file name
-    const firebaseUrl = `https://firebasestorage.googleapis.com/v0/b/${firebaseConfig.storageBucket}/o?name=${encodeURIComponent(path + uniqueFileName)}`;
+    const firebaseUrl = `https://firebasestorage.googleapis.com/v0/b/${this.firebaseConfig.storageBucket}/o?name=${encodeURIComponent(path + uniqueFileName)}`;
 
     const response = await fetch(firebaseUrl, {
       method: "POST",
@@ -46,7 +47,7 @@ export class FirebaseStorageService {
 
     // Parse the JSON response to get the download URL
     const responseBody = await response.json();
-    const downloadURL = `https://firebasestorage.googleapis.com/v0/b/${firebaseConfig.storageBucket}/o/${encodeURIComponent(responseBody.name)}?alt=media`;
+    const downloadURL = `https://firebasestorage.googleapis.com/v0/b/${this.firebaseConfig.storageBucket}/o/${encodeURIComponent(responseBody.name)}?alt=media`;
 
     return downloadURL;
   }

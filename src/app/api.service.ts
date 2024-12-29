@@ -5,13 +5,17 @@ import { from } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { Product } from "src/app/interfaces/products.interface";
 import { AuthService } from "../app/core/services/auth.service"; // Import the AuthService
-
-import config from "../../auth_config.json";
+import { environment } from "../environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class ApiService {
+  config = {
+    apiUri: environment.apiUri,
+    appUri: environment.appUri,
+    errorPath: environment.errorPath,
+  };
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   // Method to get the current Firebase token for the authenticated user
@@ -31,13 +35,13 @@ export class ApiService {
   }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${config.apiUri}/api/Product`);
+    return this.http.get<Product[]>(`${this.config.apiUri}/api/Product`);
   }
 
   createProduct(product: Product): Observable<Product> {
     return this.getFirebaseToken().pipe(
       switchMap((token) =>
-        this.http.post<Product>(`${config.apiUri}/api/Product`, product, {
+        this.http.post<Product>(`${this.config.apiUri}/api/Product`, product, {
           headers: { Authorization: `Bearer ${token}` },
         })
       )
@@ -47,7 +51,7 @@ export class ApiService {
   updateProduct(productId: string, product: Partial<Product>): Observable<Product> {
     return this.getFirebaseToken().pipe(
       switchMap((token) =>
-        this.http.put<Product>(`${config.apiUri}/api/Product/${productId}`, product, {
+        this.http.put<Product>(`${this.config.apiUri}/api/Product/${productId}`, product, {
           headers: { Authorization: `Bearer ${token}` },
         })
       )
@@ -57,7 +61,7 @@ export class ApiService {
   deleteProduct(productId: string): Observable<void> {
     return this.getFirebaseToken().pipe(
       switchMap((token) =>
-        this.http.delete<void>(`${config.apiUri}/api/Product/${productId}`, {
+        this.http.delete<void>(`${this.config.apiUri}/api/Product/${productId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
       )

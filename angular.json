@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "dist/silver-output"
+              "base": "dist/silver-catalog"
             },
             "index": "src/index.html",
             "polyfills": ["src/polyfills.ts"],

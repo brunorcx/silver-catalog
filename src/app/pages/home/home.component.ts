@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../core/services/auth.service";
-import { User } from "firebase/auth"; // Import User type from Firebase
+import { User } from "firebase/auth";
 import { CommonModule } from "@angular/common";
 import { LoadingComponent } from "../../components/shared/loading/loading.component";
 import { ProductListComponent } from "../../components/product-list/product-list.component";
 import { MainBannerComponent } from "../../components/main-banner/main-banner.component";
+import { firstValueFrom } from "rxjs"; // For async-await observable handling
 
 @Component({
   selector: "app-home",
@@ -14,27 +15,23 @@ import { MainBannerComponent } from "../../components/main-banner/main-banner.co
   imports: [CommonModule, LoadingComponent, MainBannerComponent, ProductListComponent],
 })
 export class HomeComponent implements OnInit {
-  user: User | null = null; // Set user to null as default
+  user: User | null = null;
   isLoading = true;
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    // Subscribe to the user observable from the AuthService
-    this.authService.user$.subscribe({
-      next: (user) => {
-        this.user = user; // Set the user state
-        this.isLoading = false; // Set loading to false once the user is loaded
-      },
-      error: (err) => {
-        console.error("Error fetching user data:", err);
-        this.isLoading = false; // Stop loading if there's an error
-      },
-    });
+  async ngOnInit(): Promise<void> {
+    try {
+      // Wait for the user data to be fetched
+      this.user = await firstValueFrom(this.authService.user$);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    } finally {
+      this.isLoading = false;
+    }
   }
 
-  // Getter to check if the user is authenticated
   get isAuthenticated(): boolean {
-    return this.user !== null; // If user is not null, they're authenticated
+    return this.user !== null;
   }
 }

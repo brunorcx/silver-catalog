@@ -1,45 +1,44 @@
-import { Component, Inject, OnInit, OnDestroy } from "@angular/core";
-import { AuthService } from "@auth0/auth0-angular";
-import { Subscription } from "rxjs";
-import { CommonModule } from "@angular/common";
-import { faUser, faPowerOff } from "@fortawesome/free-solid-svg-icons";
-import { AsyncPipe, DOCUMENT, NgIf } from "@angular/common";
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { NgbCollapse, NgbDropdown, NgbDropdownMenu, NgbDropdownToggle } from "@ng-bootstrap/ng-bootstrap";
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../../../core/services/auth.service";
+import { User } from "firebase/auth"; // Import User type from Firebase
+import { MatIconModule } from "@angular/material/icon"; // Import MatIconModule
+import { NgIf } from "@angular/common"; // Import NgIf for structural directives
 import { RouterLink } from "@angular/router";
-import { MatIconModule } from '@angular/material/icon';
-
 
 @Component({
   selector: "app-nav-bar",
   templateUrl: "./nav-bar.component.html",
   styleUrls: ["./nav-bar.component.less"],
   standalone: true,
-  imports: [FontAwesomeModule, MatIconModule, NgbDropdownToggle, NgbDropdownMenu, NgbDropdown, NgbCollapse, AsyncPipe, NgIf, RouterLink, CommonModule],
+  imports: [MatIconModule, NgIf, RouterLink], // Import necessary modules
 })
-export class NavBarComponent implements OnInit, OnDestroy {
+export class NavBarComponent implements OnInit {
   isCollapsed = true;
   userCollapsed = true;
-  faUser = faUser;
-  faPowerOff = faPowerOff;
-  user: any;
-  private userSubscription: Subscription;
+  user: User | null = null; // Start user as null to reflect auth state properly
 
-  constructor(public auth: AuthService, @Inject(DOCUMENT) private doc: Document) {}
-  
+  constructor(private authService: AuthService) {}
+
   ngOnInit(): void {
-    this.userSubscription = this.auth.user$.subscribe((user) => {
-      this.user = user;
+    // Directly subscribe to user from AuthService using signal
+    this.authService.user$.subscribe((user) => {
+      this.user = user; // Update user state when auth state changes
     });
   }
-  ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
-  }
+
   loginWithRedirect() {
-    this.auth.loginWithRedirect();
+    this.authService.loginWithGoogle(); // Handle login with Google redirect
+  }
+
+  loginWithPopup() {
+    this.authService.loginWithGoogle(); // Handle login with Google popup
   }
 
   logout() {
-    this.auth.logout({ logoutParams: { returnTo: this.doc.location.origin } });
+    this.authService.logout(); // Handle logout
+  }
+
+  get isAuthenticated(): boolean {
+    return this.user !== null; // Return true if user is not null
   }
 }

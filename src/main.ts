@@ -1,31 +1,21 @@
 import { bootstrapApplication } from "@angular/platform-browser";
+import { provideRouter } from "@angular/router";
+import { provideFirebaseApp, initializeApp } from "@angular/fire/app";
+import { provideAuth, getAuth } from "@angular/fire/auth";
+import { environment } from "./environments/environment";
 import { AppComponent } from "./app/app.component";
 import { routes } from "./app/app-routing.module";
-import { authHttpInterceptorFn, provideAuth0 } from "@auth0/auth0-angular";
-import { environment as env } from "./environments/environment";
-import { provideHttpClient, withInterceptors } from "@angular/common/http";
-import { HIGHLIGHT_OPTIONS } from "ngx-highlightjs";
-import { provideRouter } from "@angular/router";
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHttpClient } from "@angular/common/http";
+import { provideAnimations } from "@angular/platform-browser/animations";
+import { provideToastr } from "ngx-toastr";
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideHttpClient(withInterceptors([authHttpInterceptorFn])),
     provideRouter(routes),
-    provideAuth0({
-      ...env.auth,
-      httpInterceptor: {
-        ...env.httpInterceptor,
-      },
-    }),
-    {
-      provide: HIGHLIGHT_OPTIONS,
-      useValue: {
-        coreLibraryLoader: () => import("highlight.js/lib/core"),
-        languages: {
-          json: () => import("highlight.js/lib/languages/json"),
-        },
-      },
-    }, provideAnimationsAsync(),
+    provideHttpClient(),
+    provideAnimations(), // Required animations providers
+    provideToastr(), // Toastr providers
+    provideFirebaseApp(() => initializeApp(environment.firebase)), // Global Firebase initialization
+    provideAuth(() => getAuth()), // Firebase Auth initialization
   ],
 });

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "login-demo": {
+    "silver-catalog": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -11,26 +11,28 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/login-demo",
+            "outputPath": {
+              "base": "dist/silver-catalog",
+              "browser": ""
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "src/custom-theme.scss",
               "src/styles.less",
-              "node_modules/highlight.js/styles/monokai-sublime.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/highlight.js/styles/monokai-sublime.css",
+              "node_modules/material-icons/iconfont/material-icons.css"
             ],
-            "scripts": [],
-            "vendorChunk": true,
+            "scripts": ["node_modules/jquery/dist/jquery.min.js", "node_modules/popper.js/dist/umd/popper.min.js", "node_modules/bootstrap/dist/js/bootstrap.min.js"],
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
@@ -45,8 +47,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -65,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "login-demo:build"
+            "buildTarget": "silver-catalog:build"
           },
           "configurations": {
             "production": {
-              "buildTarget": "login-demo:build:production"
+              "buildTarget": "silver-catalog:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "login-demo:build"
+            "buildTarget": "silver-catalog:build"
           }
         },
         "test": {
@@ -86,7 +86,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": ["src/favicon.ico", "src/assets", "src/firebase_config.json"],
             "styles": ["src/styles.less"],
             "scripts": []
           }
@@ -95,11 +95,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "login-demo:serve"
+            "devServerTarget": "silver-catalog:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "login-demo:serve:production"
+              "devServerTarget": "silver-catalog:serve:production"
             }
           }
         },
@@ -114,9 +114,6 @@
   },
   "cli": {
     "analytics": false,
-    "schematicCollections": [
-      "@angular-eslint/schematics",
-      "@angular-eslint/schematics"
-    ]
+    "schematicCollections": ["@angular-eslint/schematics", "@angular-eslint/schematics"]
   }
 }

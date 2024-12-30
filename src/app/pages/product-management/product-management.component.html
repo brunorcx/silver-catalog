@@ -1,0 +1,89 @@
+<div class="admin-product-page">
+  <h2>Gerenciar produtos</h2>
+  <!-- Form for Creating/Editing Product -->
+  <div class="product-form">
+    <h3>{{ editingProduct ? "Editar Produto" : "Criar Produto" }}</h3>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmitProductForm()">
+      <div class="form-group">
+        <label for="name">Nome:</label>
+        <input id="name" type="text" formControlName="name" required placeholder="Nome do Produto" />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descrição:</label>
+        <textarea id="description" formControlName="description" rows="3" placeholder="Descrição do Produto"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Preço:</label>
+        <input id="price" type="number" formControlName="price" required placeholder="Preço do Produto" />
+      </div>
+
+      <div class="form-group">
+        <label for="availability">Disponibilidade:</label>
+        <select id="availability" formControlName="availability">
+          <option [value]="true">Disponível</option>
+          <option [value]="false">Indisponível</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="category">Categoria:</label>
+        <input id="category" type="text" formControlName="category" placeholder="Separado por vírgulas (ex. pulseira, colar)" />
+      </div>
+
+      <div class="form-group">
+        <label for="image">Imagem:</label>
+        <input id="image" type="file" (change)="onImageChange($event)" accept="image/*" /> <!-- Allow image change only during editing -->
+      </div>
+
+      <!-- Display the current image if available -->
+      <div *ngIf="imagePreview" class="image-preview">
+        <img [src]="imagePreview" alt="Imagem do Produto">
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        {{ editingProduct ? "Atualizar" : "Criar" }}
+      </button>
+      <button *ngIf="editingProduct" type="button" class="btn btn-secondary" (click)="cancelEdit()">
+        Cancel
+      </button>
+    </form>
+  </div>
+
+  <!-- Product Table -->
+  <div class="product-table">
+    <h3>Produtos existentes</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Descrição</th>
+          <th>Preço</th>
+          <th>Disponibilidade</th>
+          <th>Categoria</th>
+          <th>Imagem</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (product of productsList; track $index) {
+        <tr>
+          <td>{{ product.name | capitalize }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.price | currency:'BRL' }}</td>
+          <td>{{ product.availability ? "Sim" : "Não" }}</td>
+          <td>{{ product.category.join(", ") }}</td>
+          <td><img
+              src="{{ product.image? product.image: 'https://firebasestorage.googleapis.com/v0/b/rodriguesdev-2d63d.appspot.com/o/images%2Fno_image.png?alt=media&token=4af2c1c2-3f7c-439a-8f43-26183123748d'}}">
+          </td>
+          <td>
+            <mat-icon class="btn btn-warning-icon" (click)="onEditProduct(product)">edit</mat-icon>
+            <mat-icon class="btn btn-danger-icon" (click)="onDeleteProduct(product)">delete_outline</mat-icon>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

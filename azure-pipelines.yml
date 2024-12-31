@@ -1,0 +1,26 @@
+trigger:
+  - master  # Trigger on changes to the master branch
+
+pool:
+  vmImage: 'ubuntu-latest'  # Use the latest Ubuntu runner
+
+steps:
+  # Install Node.js and build the Angular app
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.0.0'  # Replace with the Node.js version your Angular app needs
+    displayName: 'Install Node.js'
+
+  - script: |
+      npm install
+      npm run build
+    displayName: 'Build Angular App'
+
+  # Deploy to Azure Static Web Apps
+  - task: AzureStaticWebApp@0
+    inputs:
+      app_location: "/"  # Your Angular app source folder
+      api_location: ""   # Leave empty if no API
+      output_location: "dist/silver-catalog"  # Replace <your-angular-project-name> with your Angular output folder name in `angular.json`
+    env:
+      azure_static_web_apps_api_token: $(deployment_token)  # Use the token variable

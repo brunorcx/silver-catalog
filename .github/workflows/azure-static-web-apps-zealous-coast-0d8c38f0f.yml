@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          submodules: false # Turn off submodules unless needed
+          submodules: false
           lfs: false
 
       - name: Reset Git Permissions
@@ -42,8 +42,7 @@ jobs:
         id: idtoken
         with:
           script: |
-            const core = require('@actions/core');
-            return await core.getIDToken();
+            return await require('@actions/core').getIDToken();
           result-encoding: string
 
       - name: Build and Deploy

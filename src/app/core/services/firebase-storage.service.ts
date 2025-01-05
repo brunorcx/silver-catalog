@@ -65,11 +65,20 @@ export class FirebaseStorageService {
   /**
    * Delete a file from Firebase Storage
    * @param path - Path in the storage bucket
+   * @param fileUrl - File url to delete
    * @returns Promise<void>
    */
-  async deleteFile(path: string): Promise<void> {
-    const storageRef = ref(this.storage, path);
-    await deleteObject(storageRef);
+  async deleteFile(fileUrl: string): Promise<void> {
+    const response = await fetch(fileUrl, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${await this.user.getIdToken()}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete file from Firebase Storage");
+    }
   }
 
   /**

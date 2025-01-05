@@ -22,6 +22,7 @@ export class ProductManagementComponent {
   editingProductId: string | null = null;
   imagePreview: string | null = null;
   imageFile: File | null = null;
+  oldImage: string | null = null;
 
   constructor(
     private api: ApiService,
@@ -62,7 +63,10 @@ export class ProductManagementComponent {
             product.image = url;
             this.saveProduct(product);
           })
-          .catch((err) => console.error("Error uploading image:", err));
+          .catch((err) => {
+            this.showToast("Erro ao fazer upload da imagem do produto.");
+            console.error("Error uploading image:", err);
+          });
       } else {
         this.saveProduct(product);
       }
@@ -74,6 +78,7 @@ export class ProductManagementComponent {
   onEditProduct(product: Product) {
     this.editingProduct = true;
     this.editingProductId = product.id;
+    this.oldImage = product.image;
 
     this.productForm.patchValue({
       name: product.name,
@@ -81,6 +86,7 @@ export class ProductManagementComponent {
       price: product.price,
       availability: product.availability,
       category: product.category.join(", "),
+      image: product.image,
     });
 
     this.imagePreview = product.image || null;
@@ -88,16 +94,30 @@ export class ProductManagementComponent {
 
   onDeleteProduct(product: Product) {
     if (confirm(`Tem certeza que gostaria de excluir o produto "${product.name}"?`)) {
-      this.api.deleteProduct(product.id).subscribe({
-        next: () => {
-          this.fetchProducts();
-          this.showToast("Produto excluído com sucesso!", true);
-        },
-        error: (err) => {
-          console.error("Error deleting product:", err);
-          this.showToast("Erro ao excluir o produto.");
-        },
-      });
+      const deleteProduct = () => {
+        this.api.deleteProduct(product.id).subscribe({
+          next: () => {
+            this.fetchProducts();
+            this.showToast("Produto excluído com sucesso!", true);
+          },
+          error: (err) => {
+            console.error("Error deleting product:", err);
+            this.showToast("Erro ao excluir o produto.");
+          },
+        });
+      };
+
+      if (product.image) {
+        this.storageService
+          .deleteFile(product.image)
+          .then(() => deleteProduct())
+          .catch((err) => {
+            this.showToast("Erro ao excluir a imagem do produto.");
+            console.error("Error deleting image:", err);
+          });
+      } else {
+        deleteProduct(); // No image to delete, proceed directly
+      }
     }
   }
 
@@ -108,6 +128,14 @@ export class ProductManagementComponent {
           this.fetchProducts();
           this.resetForm();
           this.showToast("Produto atualizado com sucesso!", true);
+          this.storageService
+            .deleteFile(this.oldImage)
+            .then(() => {
+              this.resetForm();
+            })
+            .catch((err) => {
+              console.error("Error deleting old image:", err);
+            });
         },
         error: (err) => {
           console.error("Error updating product:", err);
@@ -118,7 +146,6 @@ export class ProductManagementComponent {
       this.api.createProduct(product).subscribe({
         next: () => {
           this.fetchProducts();
-          this.resetForm();
           this.showToast("Produto criado com sucesso!", true);
         },
         error: (err) => {

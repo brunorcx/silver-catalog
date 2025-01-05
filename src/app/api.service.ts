@@ -38,6 +38,10 @@ export class ApiService {
     return this.http.get<Product[]>(`${this.config.apiUri}/api/Product`);
   }
 
+  getProduct(productId: string): Observable<Product> {
+    return this.http.get<Product>(`${this.config.apiUri}/api/Product/${productId}`);
+  }
+
   createProduct(product: Product): Observable<Product> {
     return this.getFirebaseToken().pipe(
       switchMap((token) =>

@@ -3,10 +3,11 @@ import { CommonModule } from "@angular/common";
 import { ApiService } from "src/app/api.service";
 import { Product } from "src/app/interfaces/products.interface";
 import { CapitalizePipe } from "src/app/shared/pipes/capitalize.pipe";
+import { DynamicTextComponent } from "../dynamic-text/dynamic-text.component";
 
 @Component({
   selector: "app-product-list",
-  imports: [CommonModule, CapitalizePipe],
+  imports: [CommonModule, CapitalizePipe, DynamicTextComponent],
   templateUrl: "./product-list.component.html",
   styleUrl: "./product-list.component.less",
   standalone: true,

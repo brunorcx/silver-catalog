@@ -1,11 +1,12 @@
 @import "../styles/media-query.less";
 @import "../styles/colors.less";
+@import "../../../shared/styles/top-left-text.less";
 
 .navbar {
   display: flex;
   position: absolute;
   width: 100%;
-  padding: .5rem 1.5rem;
+  padding: 0.5rem 1.5rem;
   margin: 0;
   background-color: transparent;
   align-items: center;
@@ -15,7 +16,6 @@
 
   .search {
     display: flex;
-    width: 10rem;
     align-items: center;
     justify-content: space-around;
 
@@ -29,6 +29,7 @@
 
   .navbar-brand {
     margin: 0.5rem;
+    cursor: pointer;
 
     // display: none;
     .logo-image {
@@ -56,17 +57,37 @@
   .side-menu {
     flex-grow: 1;
 
-    .navbar-menu {
+    .navbar-menu-left {
       display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      margin: 0 auto;
+      justify-content: flex-end;
+      margin: 0 1rem;
+      gap: 4%;
+    }
+    .navbar-menu-right {
+      display: flex;
+      justify-content: flex-start;
+      margin: 0 1rem;
+      gap: 4%;
+      padding-left: 0;
+    }
+    @media @tablet-m {
+      .navbar-menu-left {
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin: 0 auto;
+      }
+      .navbar-menu-right {
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin: 0 auto;
+      }
     }
   }
 
   .user-dashboard {
     display: flex;
-    width: 10rem;
+    gap: 6%;
+
     align-items: center;
     justify-content: space-around;
 
@@ -83,7 +104,6 @@
       align-items: center;
       color: @color-secondary;
       cursor: pointer;
-
 
       .user-menu {
         display: flex;
@@ -112,7 +132,6 @@
       .user-submenu {
         display: flex;
         flex-direction: column;
-
 
         .nav-item {
           display: flex;
@@ -156,7 +175,7 @@
     opacity: 0;
     pointer-events: none;
     transform: translateX(-50%) translateY(-3rem);
-    transition: all .5s ease-in-out;
+    transition: all 0.5s ease-in-out;
 
     .navbar-menu {
       padding: 1rem;
@@ -173,7 +192,6 @@
 
         .nav-link {
           color: @color-primary;
-
         }
       }
 
@@ -186,15 +204,14 @@
         overflow: hidden;
       }
     }
-
   }
 
   .active {
     // visibility: visible;
     opacity: 1;
     pointer-events: all;
-    transform: translateX(-50%) translateY(.7rem);
-    transition: all .5s ease-in-out;
+    transform: translateX(-50%) translateY(0.7rem);
+    transition: all 0.5s ease-in-out;
 
     &:focus {
       border: none;
@@ -202,7 +219,6 @@
     }
   }
 }
-
 
 @media @mobile {
   .navbar {
@@ -226,6 +242,7 @@
     .navbar-brand {
       margin: 0.5rem;
       display: inherit;
+      cursor: pointer;
 
       .logo-image {
         display: block;

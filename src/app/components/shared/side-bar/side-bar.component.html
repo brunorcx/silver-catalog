@@ -1,31 +1,30 @@
 <div class="sidebar-container">
-  <div class="logo-container">
-    <img src="../../../../assets/logo-ags-nome.png" alt="logo image" class="logo-image--nome" routerLink="/" />
-  </div>
-  <ul class="sidebar-menu">
-    <li class="nav-item" routerLink="/">
-      <mat-icon>home</mat-icon>
-      <a routerLink="/" class="nav-link">Home</a>
+  <h3> CATEGORIAS </h3>
+  <ul class="category-list">
+    <li class="category-item">
+      <label> Anéis </label>
+      <div class="amount"> 20</div>
     </li>
-    <li class="nav-item" routerLink="external-api">
-      <mat-icon>shopping_cart</mat-icon>
-      <a routerLink="external-api" class="nav-link">Loja</a>
-    </li>
-    <li class="nav-item" routerLink="/">
-      <mat-icon>perm_phone_msg</mat-icon>
-      <a routerLink="/" class="nav-link" (click)="isCollapsed = !isCollapsed">Contato</a>
-    </li>
-    <li class="nav-item" *ngIf="!isAuthenticated" (click)="loginWithRedirect()">
-      <mat-icon>login</mat-icon>
-      <a id="login-btn" class="nav-link">Log in</a>
-    </li>
-    <li class="nav-item" *ngIf="isAuthenticated">
-      <mat-icon>edit</mat-icon>
-      <a routerLink="product-management" class="nav-link">Gerenciar Produtos</a>
-    </li>
-    <li class="nav-item" *ngIf="isAuthenticated" (click)="logout()">
-      <mat-icon>logout</mat-icon>
-      <a class="nav-link">Log out</a>
+    <li class="category-item">
+      <label> Colares </label>
+      <div class="amount"> 13</div>
     </li>
   </ul>
+
+  <h3>PREÇO</h3>
+  <div class="price-range">
+    <div class="slider-container">
+      <div class="slider-track"></div>
+
+      <!-- Minimum Thumb -->
+      <input type="range" class="slider thumb-min" [min]="baseMinPrice" [max]="baseMaxPrice" [value]="minPrice" (input)="onMinPriceChange($event)" />
+      <!-- Maximum Thumb -->
+      <input type="range" class="slider thumb-max" [min]="baseMinPrice" [max]="baseMaxPrice" [value]="maxPrice" (input)="onMaxPriceChange($event)" />
+      <!-- Range Highlight -->
+      <div class="slider-range" [style.left.%]="((minPrice - baseMinPrice) / (baseMaxPrice - baseMinPrice)) * 100"
+        [style.width.%]="((maxPrice - minPrice) / (baseMaxPrice - baseMinPrice)) * 100"></div>
+    </div>
+
+    <p>Preço: R${{ minPrice }} - R${{ maxPrice }}</p>
+  </div>
 </div>

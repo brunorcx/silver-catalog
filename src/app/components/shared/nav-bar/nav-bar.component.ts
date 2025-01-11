@@ -16,6 +16,7 @@ export class NavBarComponent implements OnInit {
   isCollapsed = true;
   userCollapsed = true;
   user: User | null = null; // Start user as null to reflect auth state properly
+  isUserAdmin = false; // Default to false
 
   constructor(private authService: AuthService, private eRef: ElementRef) {}
 
@@ -23,13 +24,18 @@ export class NavBarComponent implements OnInit {
     // Directly subscribe to user from AuthService using signal
     this.authService.user$.subscribe((user) => {
       this.user = user; // Update user state when auth state changes
+      if (user) {
+        user.getIdTokenResult().then((idTokenResult) => {
+          this.isUserAdmin = idTokenResult.claims["role"] === "admin"; // Check if user is admin
+        });
+      }
     });
   }
 
   /**
    * @name clickout
    * @description Click listener for document to close dropdowns when clicking outside.
-   * @param event 
+   * @param event
    */
   @HostListener("document:click", ["$event"])
   clickout(event: Event) {

@@ -27,6 +27,7 @@ export const routes: Routes = [
   {
     path: "product-management",
     component: ProductManagementComponent,
+    data: { role: "role" }, // Admin-only page
     canActivate: [AuthGuard], // Apply the custom AuthGuard
   },
   { path: "error", component: ErrorComponent },

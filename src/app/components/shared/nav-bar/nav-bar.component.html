@@ -1,21 +1,22 @@
 <nav class="navbar">
   <div class="search">
+    @if(isAuthenticated && isUserAdmin){
     <mat-icon>search</mat-icon>
-    <mat-icon *ngIf="isAuthenticated" routerLink="product-management">edit</mat-icon>
+    }
     <!-- Barra de pesquisa -->
   </div>
   <div class="side-menu">
-    <ul class="navbar-menu">
-      <li class="nav-item">
+    <ul class="navbar-menu-left">
+      <li class="nav-item right-left-effect">
         <a routerLink="/" class="nav-link">Home</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item right-left-effect">
         <a routerLink="external-api" class="nav-link">Loja</a>
       </li>
     </ul>
   </div>
 
-  <div class="navbar-brand">
+  <div class="navbar-brand" routerLink="/">
     <img src="../../../../assets/logo-ags.png" alt="logo image" class="logo-image" routerLink="/" />
     <img src="../../../../assets/logo-ags-nome.png" alt="logo image" class="logo-image--nome" routerLink="/" />
   </div>
@@ -26,24 +27,25 @@
 
 
   <div class="side-menu">
-    <ul class="navbar-menu">
-      <li class="nav-item">
+    <ul class="navbar-menu-right">
+      <li class="nav-item left-right-effect">
         <a routerLink="/" class="nav-link">Contato</a>
       </li>
-      <li class="nav-item">
-        <a routerLink="external-api" class="nav-link">Loja</a>
+      <li class="nav-item left-right-effect">
+        <a routerLink="external-api" class="nav-link">Sobre Nós</a>
       </li>
     </ul>
   </div>
-
   <div class="user-dashboard">
-    <!-- If user is not authenticated, show login button -->
+    @if (isAuthenticated && isUserAdmin) {
     <div>
       <mat-icon>star</mat-icon>
     </div>
     <div>
       <mat-icon>shopping_cart</mat-icon>
     </div>
+    }
+
 
     @if (!isAuthenticated) {
     <div class="user-area" (click)="loginWithRedirect()">
@@ -64,6 +66,12 @@
             <mat-icon>person</mat-icon>
             <a routerLink="/profile" class="nav-link">Perfil</a>
           </li>
+          @if(isAuthenticated && isUserAdmin){
+          <li class="nav-item">
+            <mat-icon routerLink="product-management">settings</mat-icon>
+            <a routerLink="/product-management" class="nav-link">Gerenciar Produtos</a>
+          </li>
+          }
           <li class="nav-item" (click)="logout()">
             <mat-icon>logout</mat-icon>
             <a class="nav-link">Log out</a>

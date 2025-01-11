@@ -1,0 +1,101 @@
+.left-right-effect {
+  position: relative;
+  display: inline-block;
+
+  a {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: #333; // Default text color
+    padding: 5px 10px;
+    z-index: 1;
+    overflow: hidden;
+    transition: color 0.3s ease;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      background-color: #4d565b; // Border color
+      transition: all 0.3s ease;
+    }
+
+    &::before {
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px; // Thickness of the bottom border
+    }
+
+    &::after {
+      top: 0;
+      right: 0;
+      width: 2px; // Thickness of the right border
+      height: 0;
+    }
+
+    &:hover {
+      color: #393737c9; // Change text color on hover
+    }
+
+    &:hover::before {
+      width: 100%; // Animate bottom border to full width
+    }
+
+    &:hover::after {
+      height: 100%; // Animate right border to full height
+    }
+  }
+}
+
+.right-left-effect {
+  position: relative;
+  display: inline-block;
+
+  a {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: #333; // Default text color
+    padding: 5px 10px;
+    z-index: 1;
+    overflow: hidden;
+    transition: color 0.3s ease;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      background-color: #4d565b; // Border color
+      transition: all 0.3s ease;
+    }
+
+    &::before {
+      bottom: 0;
+      right: 0;
+      width: 0;
+      height: 2px; // Thickness of the bottom border
+    }
+
+    &::after {
+      top: 0;
+      left: 0;
+      width: 2px; // Thickness of the left border
+      height: 0;
+    }
+
+    &:hover {
+      color: #393737c9; // Change text color on hover
+    }
+
+    &:hover::before {
+      width: 100%; // Animate bottom border to full width
+      right: auto; // Ensure it extends from the right to left
+      left: 0; // Align for correct direction
+    }
+
+    &:hover::after {
+      height: 100%; // Animate left border to full height
+    }
+  }
+}

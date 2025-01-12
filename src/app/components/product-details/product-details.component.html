@@ -1,0 +1,22 @@
+<div class="product-details">
+  <section class="sidebar-section">
+    <app-side-bar class="sidebar-component"></app-side-bar>
+  </section>
+
+  <!-- Left Section: Images -->
+  <div class="product-images">
+    <img [src]="product?.image" alt="Product Image" class="main-image" />
+    <div class="additional-images">
+      @for (image of additionalImages; track $index) {
+      <img [src]="image" alt="Thumbnail" class="thumbnail" />
+      }
+    </div>
+  </div>
+
+  <!-- Right Section: Details -->
+  <div class="product-info">
+    <h1>{{ product?.name }}</h1>
+    <p class="price">{{ product?.price | currency: 'BRL' }}</p>
+    <p class="description">{{ product?.description }}</p>
+  </div>
+</div>

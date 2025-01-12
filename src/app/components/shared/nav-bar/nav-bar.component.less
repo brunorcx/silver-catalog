@@ -1,5 +1,6 @@
 @import "../styles/media-query.less";
 @import "../styles/colors.less";
+@import "../../../shared/styles/top-left-text.less";
 
 .navbar {
   display: flex;
@@ -10,45 +11,13 @@
   background-color: transparent;
   align-items: center;
   justify-content: center;
-  z-index: 2;
+  z-index: 3;
   box-shadow: none;
-  #navbarNav {
-    visibility: hidden;
-    pointer-events: none;
-    height: auto;
-    transform: translate(-50%, 65%);
-    position: fixed;
-  }
 
-  .navbar-brand {
-    margin: 0.5rem;
-    display: none;
-    .logo-image {
-      display: none;
-      width: 30px;
-      height: auto;
-    }
-
-    .logo-image--nome {
-      width: 95px;
-      height: auto;
-    }
-  }
-
-  .navbar-toggler {
-    display: none;
-    height: 1rem;
-  }
-
-  .spacer {
-    flex-grow: 1;
-  }
-
-  .user-area {
+  .search {
     display: flex;
     align-items: center;
-    color: @color-secondary;
-    cursor: pointer;
+    justify-content: space-around;
 
     mat-icon {
       font-size: 2rem;
@@ -56,58 +25,135 @@
       width: 2rem;
       fill: @color-primary;
     }
-    .user-menu {
-      display: flex;
-      position: absolute;
-      background-color: #eff1f5;
-      top: 5.7rem;
-      right: 0.5rem;
-      padding: 0.5rem;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      opacity: 1;
-      transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .navbar-brand {
+    margin: 0.5rem;
+    cursor: pointer;
+
+    // display: none;
+    .logo-image {
+      display: none;
+      width: 40px;
+      height: auto;
     }
 
-    .hidden {
+    .logo-image--nome {
+      width: 130px;
+      height: auto;
+    }
+  }
+
+  .navbar-toggler {
+    display: none;
+    height: 1rem;
+
+    &:focus {
+      border: none;
+      outline: none;
+    }
+  }
+
+  .side-menu {
+    flex-grow: 1;
+
+    .navbar-menu-left {
       display: flex;
-      position: absolute;
-      top: 5.7rem;
-      right: 0.5rem;
-      padding: 0.5rem;
-      opacity: 0;
-      transform: translateY(-20px);
-      pointer-events: none;
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      justify-content: flex-end;
+      margin: 0 1rem;
+      gap: 4%;
+    }
+    .navbar-menu-right {
+      display: flex;
+      justify-content: flex-start;
+      margin: 0 1rem;
+      gap: 4%;
+      padding-left: 0;
+    }
+    @media @tablet-m {
+      .navbar-menu-left {
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin: 0 auto;
+      }
+      .navbar-menu-right {
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .user-dashboard {
+    display: flex;
+    gap: 6%;
+
+    align-items: center;
+    justify-content: space-around;
+
+    mat-icon {
+      font-size: 2rem;
+      height: 2rem;
+      width: 2rem;
+      fill: @color-primary;
+      color: @color-primary;
     }
 
-    .user-submenu {
+    .user-area {
       display: flex;
-      flex-direction: column;
-      list-style-type: none;
-      text-decoration: none;
-      margin: 0;
-      padding: 0;
+      align-items: center;
+      color: @color-secondary;
+      cursor: pointer;
 
-      .nav-item {
+      .user-menu {
         display: flex;
-        align-items: center;
-        margin: 0;
-        padding: 0;
-        cursor: pointer;
+        position: absolute;
+        background-color: #eff1f5;
+        top: 5.7rem;
+        right: 0.5rem;
+        padding: 0.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        opacity: 1;
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
 
-        &:first-child {
-          margin: 0 auto;
-          font-weight: 500;
-        }
+      .hidden {
+        display: flex;
+        position: absolute;
+        top: 5.7rem;
+        right: 0.5rem;
+        padding: 0.5rem;
+        opacity: 0;
+        transform: translateY(-20px);
+        pointer-events: none;
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
 
-        mat-icon {
-          font-size: 1.5rem;
-          height: 1.5rem;
-          width: 1.5rem;
-        }
+      .user-submenu {
+        display: flex;
+        flex-direction: column;
 
-        a {
-          color: @color-primary;
+        .nav-item {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+
+          &:first-child {
+            margin: 0 auto;
+            font-weight: 500;
+          }
+
+          mat-icon {
+            font-size: 1.5rem;
+            height: 1.5rem;
+            width: 1.5rem;
+            fill: @color-primary;
+            color: @color-primary;
+          }
+
+          a {
+            color: @color-primary;
+          }
         }
       }
     }
@@ -119,10 +165,19 @@
   }
 
   .menu {
+    position: absolute;
+    top: 7rem;
+    width: 95%;
+    left: 50%;
+    background-color: white;
+    z-index: 2;
+    // visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(-3rem);
+    transition: all 0.5s ease-in-out;
+
     .navbar-menu {
-      list-style-type: none;
-      text-decoration: none;
-      margin: 0;
       padding: 1rem;
 
       .nav-item {
@@ -137,9 +192,6 @@
 
         .nav-link {
           color: @color-primary;
-          text-decoration: none;
-          margin: 0;
-          padding: 0;
         }
       }
 
@@ -153,6 +205,19 @@
       }
     }
   }
+
+  .active {
+    // visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(-50%) translateY(0.7rem);
+    transition: all 0.5s ease-in-out;
+
+    &:focus {
+      border: none;
+      outline: none;
+    }
+  }
 }
 
 @media @mobile {
@@ -160,22 +225,24 @@
     justify-content: space-between;
     position: inherit;
 
-    #navbarNav {
-      &.show {
-        visibility: visible;
-        pointer-events: auto;
-        transform: translate(-10%, 65%);
-        transition: all 0.3s ease;
-        z-index: 3;
-        background: white;
-        width: 115%;
-        display: flex;
-        justify-content: center;
-      }
-    }
+    // #navbarNav {
+    //   &.show {
+    //     visibility: visible;
+    //     pointer-events: auto;
+    //     transform: translate(-10%, 65%);
+    //     transition: all 0.3s ease;
+    //     z-index: 3;
+    //     background: white;
+    //     width: 115%;
+    //     display: flex;
+    //     justify-content: center;
+    //   }
+    // }
+
     .navbar-brand {
       margin: 0.5rem;
       display: inherit;
+      cursor: pointer;
 
       .logo-image {
         display: block;
@@ -255,11 +322,9 @@
       }
     }
 
-    .spacer {
-      display: none;
-    }
-
-    .user-area {
+    .search,
+    .user-dashboard,
+    .side-menu {
       display: none;
     }
   }

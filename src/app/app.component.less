@@ -1,46 +1,53 @@
-@import '../app/components/shared/styles/media-query.less';
+@import "../app/components/shared/styles/media-query.less";
 
 .main-container {
-    display: grid;
-    min-height: 101vh;
-    grid-template-rows: 0fr 1fr 0fr;
-    gap: 0px;
-    grid-template-areas:
-        "Navbar Navbar Navbar"
-        "Sidebar Body Body"
-        "Footer Footer Footer";
+  display: grid;
+  min-height: 101vh;
+  grid-template-rows: 0fr 1fr 0fr;
+  gap: 0px;
+  grid-template-areas:
+    "Navbar"
+    "Body"
+    "Footer";
 
-    .nav-bar-section {
-        grid-area: Navbar;
-    }
+  .nav-bar-section {
+    grid-area: Navbar;
+  }
 
-    .sidebar-component {
-        display: block;
-        height: 100%;
-        grid-area: Sidebar;
-    }
+  .navbar-component {
+    display: block;
+    height: 7rem;
+  }
 
-    .body-section {
-        grid-area: Body;
-    }
+  .sidebar-component {
+    display: block;
+    height: 100%;
+    grid-area: Sidebar;
+  }
 
-    .footer-section {
-        grid-area: Footer;
-        align-self: end;
-    }
+  .body-section {
+    grid-area: Body;
+  }
 
+  .footer-section {
+    grid-area: Footer;
+    align-self: end;
+  }
 
+  .body-section {
+    grid-area: Body;
+  }
+
+  .footer-section {
+    grid-area: Footer;
+    align-self: end;
+  }
 }
 
 @media @mobile {
-    .main-container {
-
-        .sidebar-component {
-            display: none;
-        }
-
-        .navbar-component {
-            display: block;
-        }
+  .main-container {
+    .sidebar-component {
+      display: none;
     }
+  }
 }

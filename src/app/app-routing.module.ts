@@ -5,9 +5,15 @@ import { ExternalApiComponent } from "./pages/external-api/external-api.componen
 import { ErrorComponent } from "./pages/error/error.component";
 import { ProductManagementComponent } from "./pages/product-management/product-management.component";
 import { AuthGuard } from "../app/core/guards/auth.guard"; // Import your custom AuthGuard
+import { ProductDetailsComponent } from "./components/product-details/product-details.component";
 
 export const routes: Routes = [
   { path: "", component: HomeComponent },
+  {
+    path: "product/:id", // Dynamic route with "id" as a parameter
+    component: ProductDetailsComponent,
+    canActivate: [AuthGuard], // Protect the route with AuthGuard if needed
+  },
   {
     path: "profile",
     component: ProfileComponent,
@@ -21,6 +27,7 @@ export const routes: Routes = [
   {
     path: "product-management",
     component: ProductManagementComponent,
+    data: { role: "role" }, // Admin-only page
     canActivate: [AuthGuard], // Apply the custom AuthGuard
   },
   { path: "error", component: ErrorComponent },

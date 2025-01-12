@@ -4,6 +4,7 @@ import { ApiService } from "src/app/api.service";
 import { Product } from "src/app/interfaces/products.interface";
 import { CapitalizePipe } from "src/app/shared/pipes/capitalize.pipe";
 import { DynamicTextComponent } from "../dynamic-text/dynamic-text.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-product-list",
@@ -16,7 +17,7 @@ export class ProductListComponent {
   hasApiError = false;
   productsList: Product[];
 
-  constructor(private api: ApiService) {
+  constructor(private api: ApiService, private router: Router) {
     this.api.getProducts().subscribe({
       next: (res) => {
         this.hasApiError = false;
@@ -26,5 +27,9 @@ export class ProductListComponent {
       },
       error: () => (this.hasApiError = true),
     });
+  }
+
+  navigateToProductDetails(product: Product) {
+    this.router.navigate(["/product", product.id]);
   }
 }

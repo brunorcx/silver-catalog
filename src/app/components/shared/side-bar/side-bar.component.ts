@@ -15,6 +15,11 @@ import { MatIconModule } from "@angular/material/icon";
 export class SideBarComponent implements OnInit {
   isCollapsed = true;
   user: User | null = null; // Default user to null to reflect unauthenticated state
+  baseMinPrice = 150; // Absolute minimum
+  baseMaxPrice = 2500; // Absolute maximum
+  minPrice = 150; // Dynamic minimum value
+  maxPrice = 2500; // Dynamic maximum value
+  priceGap = 200; // Minimum gap between minPrice and maxPrice
 
   constructor(private authService: AuthService) {}
 
@@ -23,6 +28,29 @@ export class SideBarComponent implements OnInit {
     this.authService.user$.subscribe((user) => {
       this.user = user; // Set user when auth state changes
     });
+  }
+
+  onMinPriceChange(event: Event): void {
+    const newMin = +(event.target as HTMLInputElement).value;
+    if (newMin + this.priceGap <= this.maxPrice) {
+      this.minPrice = newMin;
+    } else {
+      this.minPrice = this.maxPrice - this.priceGap;
+      // Force the slider back if it overlaps
+      (event.target as HTMLInputElement).value = this.minPrice.toString();
+    }
+  }
+
+  // Handler for max price slider
+  onMaxPriceChange(event: Event): void {
+    const newMax = +(event.target as HTMLInputElement).value;
+    if (newMax >= this.minPrice + this.priceGap) {
+      this.maxPrice = newMax;
+    } else {
+      this.maxPrice = this.minPrice + this.priceGap;
+      // Force the slider back if it overlaps
+      (event.target as HTMLInputElement).value = this.maxPrice.toString();
+    }
   }
 
   // Login method using the AuthService's Google login

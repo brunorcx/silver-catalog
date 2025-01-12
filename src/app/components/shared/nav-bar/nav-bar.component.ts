@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ElementRef, HostListener } from "@angular/core";
 import { AuthService } from "../../../core/services/auth.service";
 import { User } from "firebase/auth"; // Import User type from Firebase
 import { MatIconModule } from "@angular/material/icon"; // Import MatIconModule
@@ -16,14 +16,33 @@ export class NavBarComponent implements OnInit {
   isCollapsed = true;
   userCollapsed = true;
   user: User | null = null; // Start user as null to reflect auth state properly
+  isUserAdmin = false; // Default to false
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private eRef: ElementRef) {}
 
   ngOnInit(): void {
     // Directly subscribe to user from AuthService using signal
     this.authService.user$.subscribe((user) => {
       this.user = user; // Update user state when auth state changes
+      if (user) {
+        user.getIdTokenResult().then((idTokenResult) => {
+          this.isUserAdmin = idTokenResult.claims["role"] === "admin"; // Check if user is admin
+        });
+      }
     });
+  }
+
+  /**
+   * @name clickout
+   * @description Click listener for document to close dropdowns when clicking outside.
+   * @param event
+   */
+  @HostListener("document:click", ["$event"])
+  clickout(event: Event) {
+    if (!this.eRef.nativeElement.contains(event.target)) {
+      this.isCollapsed = true;
+      this.userCollapsed = true;
+    }
   }
 
   loginWithRedirect() {
